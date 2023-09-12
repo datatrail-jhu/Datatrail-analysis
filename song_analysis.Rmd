@@ -1,0 +1,117 @@
+---
+title: "Song"
+author: "jabir"
+date: "2023-08-11"
+output: html_document
+---
+
+```{r}
+songs <- read.csv("Spotify_final_dataset.csv")
+library(tidyverse)
+library(janitor)
+```
+
+
+What songs stayed in the top ten the most and longest?
+ 
+ Looks like post malones song called sunflower has been in the top 10 the longest amount of times
+
+ 
+```{r}
+songs <- songs |>
+  clean_names()
+```
+
+
+```{r}
+songs |>
+  select(artist_name,song_name,days,peak_position,top_10_x_times) |>
+  filter(peak_position %in% "1") |>
+  arrange(desc(top_10_x_times))
+```
+
+
+Lets see which song has the most streams?
+
+
+sunflower by post malone has the most streams
+
+```{r}
+songs |>
+  select(artist_name,song_name,days,total_streams,peak_position) |>
+  arrange(desc(total_streams))
+```
+
+Split switching gears using the spotify API
+
+```{r}
+library(dplyr)
+library(spotifyr)
+library(plotly)
+library(ggplot2)
+```
+
+```{r}
+id <- "edcc2c4666f64421bf98439ad7daa85f"
+secret <- "40de60ef43ca4831a5344c588a008fb4"
+Sys.setenv(SPOTIFY_CLIENT_ID = id)
+Sys.setenv(SPOTIFY_CLIENT_SECRET = secret)
+access_token <- get_spotify_access_token()
+
+```
+
+FOr general info about the Spotify API and what categories and info is available you can go here: https://developer.spotify.com/documentation/web-api
+
+For info about the specific R package, `spotifyr` you can go here: https://www.rcharlie.com/spotifyr/
+Or look in the help pane. 
+
+```{r}
+beatles <- get_artist_audio_features('the beatles')
+
+
+# You can find the Artist ID by going to spotify and clicking on the profile and obtaining it from the URL: 
+
+# So for example, if the URL for the Weeknd is https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ
+
+# Then the Artist ID for The Weeknd is 1Xyo4u8uXC1ZmMpatF05PJ
+
+weeknd <- get_artist_albums("1Xyo4u8uXC1ZmMpatF05PJ")
+
+
+# To obtain playlist info, same id for the URL. Go to the URL and the last part is the playlist ID 
+top_100_most_streamed_songs <- get_playlist_tracks("5ABHKGoOzxkaa28ttQV9sE")
+
+```
+
+
+
+```{r}
+
+categories <- get_categories()
+
+party_playlists <- get_category_playlists("party", limit = 50)
+```
+
+
+Analyzing audio specs from specific tracks
+
+```{r}
+top_100_most_streamed_songs$track.id
+
+track_analysis <- get_track_audio_analysis(top_100_most_streamed_songs$track.id[1])
+
+# Get audio info for a bunch of tracks
+audio_analysis <- lapply(top_100_most_streamed_songs$track.id, get_track_audio_analysis)
+
+get_playlist_tracks("0oeuPZvxHL39AJfffV2wHE")
+
+get_track_audio_analysis("1EaKU4dMbesXXd3BrLCtYG")
+```
+what form of tempo is most popular? fast or slow
+what genre has the most popular songs?
+what are some popular long songs?
+what is the shortest song on spotify?
+
+
+
+
