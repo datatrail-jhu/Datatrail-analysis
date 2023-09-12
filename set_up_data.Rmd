@@ -9,6 +9,7 @@ library("spotifyr")
 library(tidyverse)
 library(lubridate)
 library(corrplot)
+library(usethis)
 
 dir.create("data", showWarnings = FALSE)
 ```
