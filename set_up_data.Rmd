@@ -5,11 +5,12 @@ output: html_notebook
 
 
 ```{r}
-library("spotifyr")
+library(spotifyr)
 library(tidyverse)
 library(lubridate)
 library(corrplot)
 library(usethis)
+library(ggthemes)
 
 dir.create("data", showWarnings = FALSE)
 ```
@@ -17,6 +18,9 @@ dir.create("data", showWarnings = FALSE)
 ```{r}
 id <- "edcc2c4666f64421bf98439ad7daa85f"
 secret <- "40de60ef43ca4831a5344c588a008fb4"
+
+#id <- "518f769c96f344f5b34f907ba779b0b5"
+#secret <- "8b12f741eea043c591f77d570348b842"
 Sys.setenv(SPOTIFY_CLIENT_ID = id)
 Sys.setenv(SPOTIFY_CLIENT_SECRET = secret)
 access_token <- get_spotify_access_token()
@@ -60,11 +64,12 @@ songs_df <- dplyr::bind_rows(songs, .id = "year") %>%
 ```
 
 ```{r}
-track_audio_info <- songs_df %>% 
-  dplyr::select(track.id) %>% 
-  purrr::pmap(function(track.id) {
-    get_track_audio_features(track.id)
-  }) 
+# WE need to send these in batches so we don't reach the request limits
+split(songs_df$track.id)
+
+
+track_lists <- paste0(paste0("'", songs_df$track.id, "'"), collapse = ",")
+track_audio_info <- get_track_audio_features(tracks)
 ```
 
 ```{r}
@@ -80,9 +85,6 @@ track_audio_info %>%
 ```{r}
 # Write code here that would use dplyr::inner_join() to join together track_audio_info and songs_df by matching their songs for the 'by' argument
 combined_df <- dplyr::inner_join(track_audio_info,songs_df_clean, by = "track.id")
-
-view(songs_df_clean)
-view(track_audio_info)
 ```
 
 Let's extract the actual song release year from the variable `track.album.release_date`
@@ -105,7 +107,14 @@ track_audio_info <- track_audio_info |>
   mutate(track.id = id)
 ```
 
+```{r}
+# Write code here that 
+
+```
+
+
 ### Candace and Jabir pair code
+
 ```{r}
 combined_df |> 
 ggplot2::ggplot(ggplot2::aes(release_date, track.popularity)) + 
@@ -201,8 +210,6 @@ top_songs_df <- combined_df |>
   mutate(year = as.factor(year)) |>
   group_by(year) |>
   top_n(1,track.popularity)
-
-view(combined_df)
 ```
 
 
@@ -225,7 +232,10 @@ combined_df |>
   geom_point() +
   labs(title = "Every song in each year",
        subtitle = "An overall scale of each year",
-       x = "popularity")
+       x = "year",
+       y = "popularity") +
+   theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
+  ggthemes::theme_solarized()
 
 top_songs_df |>
   ggplot(aes(x = track.name, y = track.popularity, fill = year)) +
@@ -234,13 +244,15 @@ top_songs_df |>
 
 top_songs_df_of_one |>
   ggplot(aes(x = year, y = track.popularity)) +
-  geom_bar(stat = "identity") +
+  geom_point(color = "orange") +
   theme(axis.text.x = element_text(angle = 40,hjust = 1)) +
   labs(title = "Number one most popular song in each year",
        subtitle = "From 1978-2010",
-       x = "Song",
-       y = "popularity")
-  
+       x = "Year",
+       y = "popularity") +
+ theme(panel.background = element_rect(fill = "black"),
+        panel.grid.major = element_line(color = "black"),
+        panel.grid.minor = element_line(color = "black"))
 ```
 
 very unpopular songs having low ratings in popularity this playlist is filled with ear stredding ear bleeding horrible covers of songs
@@ -262,6 +274,122 @@ trash_songs |>
   ggplot(aes(x = track.name, y = track.popularity)) +
   geom_boxplot()
 ```
+
+running t test between the popular songs and the unpopular songs
+
+```{r}
+t.test(trash_songs$track.popularity,top_songs_df$track.popularity)
+```
+
+
+```{r}
+topsongsvstrash <- bind_rows(list(unpopular=trash_songs, popular=top_songs_df), .id= "song_group")
+
+topsongsvstrash |>
+  ggplot(aes(x = song_group, y = track.popularity)) +
+  geom_violin()
+
+ggplot(data = topsongsvstrash, aes(x = song_group, y = danceability)) +
+  geom_violin()
+
+
+```
+
+getting audio data from trash playlist
+
+```{r}
+
+trash_audio_info <- trash_songs %>% 
+  dplyr::select(track.id) %>% 
+  purrr::pmap(function(track.id) {
+    get_track_audio_features(track.id)
+  }) %>% 
+  dplyr::bind_rows() %>% 
+  readr::write_tsv(file.path("data","trash_audio_info.tsv"))
+
+trash_songs_df <- dplyr::inner_join(trash_songs, trash_audio_info, by = c("track.id" = "id" ))
+
+combined_songs_df <- bind_rows(list(unpopular=trash_songs_df, popular=combined_df), .id= "song_group")
+
+combined_songs_df |>
+readr::write_tsv(file.path("data","combined_trash_and_popular.tsv"))
+
+combined_songs_df |>
+  ggplot(aes(x = song_group, y = danceability)) +
+  geom_violin()
+
+combined_songs_df |>
+  ggplot(aes(x = song_group, y = tempo)) +
+  geom_violin()
+
+combined_songs_df |>
+  ggplot(aes(x = song_group, y = liveness)) +
+  geom_violin()
+
+combined_songs_df |>
+  ggplot(aes(x = song_group, y = instrumentalness)) +
+  geom_violin()
+
+combined_songs_df |>
+  ggplot(aes(x = song_group, y = energy)) +
+  geom_violin()
+
+combined_songs_df |>
+  ggplot(aes(x = song_group, y = loudness)) +
+  geom_violin()
+
+combined_songs_df |>
+  ggplot(aes(x = song_group, y = acousticness)) +
+  geom_violin()
+
+combined_songs_df |>
+  ggplot(aes(x = song_group, y = key)) +
+  geom_violin()
+
+## Now you can clean up trash_songs_df and make plots from it
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
