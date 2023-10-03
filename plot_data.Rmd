@@ -5,6 +5,17 @@ date: "2023-09-22"
 output: html_document
 ---
 
+
+```{r}
+library(spotifyr)
+library(tidyverse)
+library(lubridate)
+library(corrplot)
+library(usethis)
+library(ggthemes)
+```
+
+
 ```{r}
 # grabbing every variable for further use
 top_five_all <- good_songs_df |>
