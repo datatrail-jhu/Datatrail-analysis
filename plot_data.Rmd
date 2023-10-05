@@ -208,6 +208,71 @@ all_songs_df |>
 
 ## Now you can clean up trash_songs_df and make plots from it
 
-table(all_songs_df$song_group, all_songs_df$key)
 
 ```
+
+finding two new bad playlist
+
+```{r}
+
+other_bad_playlist <- "1FASvwq3uL0GEbEP8yMoBu"
+
+other_bad_playlist <- get_playlist_tracks(other_bad_playlist)
+
+another__bad_playlist <- "1te9h48c8YEPx5LiryMg5l"
+
+another__bad_playlist <- get_playlist_tracks(another__bad_playlist)
+```
+
+
+```{r}
+other_bad_playlist <- paste0(other_bad_playlist$track.id , collapse = ",")
+
+other_bad_playlist <- get_track_audio_features(other_bad_playlist)
+
+another__bad_playlist <- paste0(another__bad_playlist$track.id , collapse = ",")
+
+another__bad_playlist <- get_track_audio_features(another__bad_playlist)
+```
+
+
+```{r}
+other_bad_playlist <- other_bad_playlist |>
+  bind_rows() |>
+  write_tsv(file.path("data","other_bad_playlist.tsv"))
+
+another__bad_playlist <- another__bad_playlist |>
+  bind_rows() |>
+  write_tsv(file.path("data","another_bad_playlist.tsv"))
+```
+
+join both new datasets. 
+
+nbp_combined stands for new bad playlist combined
+
+```{r}
+other_bad_playlist <- other_bad_playlist |>
+  rename(track.id = id)
+
+another__bad_playlist <- another__bad_playlist |>
+  rename(track.id = trtack.id)
+
+nbp_combined <- full_join(other_bad_playlist,another__bad_playlist, by = "track.id")
+
+trash_songs_df <- full_join(trash_songs_df,nbp_combined,by = "track.id")
+
+
+table(all_songs_df$song_group, all_songs_df$key)
+
+list()
+```
+
+
+
+
+
+
+
+
+
+
