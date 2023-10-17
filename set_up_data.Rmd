@@ -82,8 +82,6 @@ track_audio_df <- bind_rows(track_audio_features)
 # Get rid of songs that don't have audio info
 track_audio_df <- track_audio_df |>
    filter(!is.na(tempo))
-
-
 ```
 Put all the song info together in one data frame 
 
@@ -104,12 +102,14 @@ good_songs_df <- good_songs_df |>
  dplyr::filter(!is.na(release_date))
 ```
 
-
+Collect all the unpopular songs playlist information 
 
 ```{r}
-worst_song_playlist <- "47LqfQL7pHzfCFl8wOjPn7"
+worst_song_playlist <- c("47LqfQL7pHzfCFl8wOjPn7","1te9h48c8YEPx5LiryMg5l","1FASvwq3uL0GEbEP8yMoBu")
 
-trash_songs <- get_playlist_tracks(worst_song_playlist)
+trash_songs <- lapply(worst_song_playlist, get_playlist_tracks)
+
+trash_songs <- bind_rows(trash_songs, .id = "playlist_id")
 ```
 
 ```{r}

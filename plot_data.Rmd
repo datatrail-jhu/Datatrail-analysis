@@ -15,6 +15,11 @@ library(usethis)
 library(ggthemes)
 ```
 
+Import data that was set up in the notebook `set_up_data.Rmd`. 
+
+```{r}
+all_songs_df <- readRDS(file.path("data", "all_songs.RDS"))
+```
 
 ```{r}
 # grabbing every variable for further use
@@ -45,7 +50,7 @@ top_five_all |>
   geom_point() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 
-combined_df |>
+good_songs_df |>
   ggplot(aes(x = release_date, y = loudness)) +
   geom_point() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
@@ -68,7 +73,7 @@ good_songs_df |>
 # Start making some plots with ggplot2 and explore possible relationships between the year of the song and any other variable that we might have in the dataset that you think may be related in some way. 
 # Also maybe look at popularity and audio information 
 
-ggplot2::ggplot(songs_df, ggplot2::aes(track.album.release_date, track.popularity)) + 
+ggplot2::ggplot(good_songs_df, ggplot2::aes(track.album.release_date, track.popularity)) + 
   ggplot2::geom_point()
 
 good_songs_df |>
@@ -159,16 +164,12 @@ t.test(trash_songs$track.popularity,top_songs_df$track.popularity)
 
 
 ```{r}
-
-
 all_songs_df |>
   ggplot(aes(x = song_group, y = track.popularity)) +
   geom_violin()
 
 ggplot(data = all_songs_df, aes(x = song_group, y = danceability)) +
   geom_violin()
-
-
 ```
 
 getting audio data from trash playlist
@@ -211,19 +212,6 @@ all_songs_df |>
 
 ```
 
-finding two new bad playlist
-
-```{r}
-
-other_bad_playlist <- "1FASvwq3uL0GEbEP8yMoBu"
-
-other_bad_playlist <- get_playlist_tracks(other_bad_playlist)
-
-another__bad_playlist <- "1te9h48c8YEPx5LiryMg5l"
-
-another__bad_playlist <- get_playlist_tracks(another__bad_playlist)
-```
-
 
 ```{r}
 other_bad_playlist <- paste0(other_bad_playlist$track.id , collapse = ",")
@@ -255,16 +243,22 @@ other_bad_playlist <- other_bad_playlist |>
   rename(track.id = id)
 
 another__bad_playlist <- another__bad_playlist |>
-  rename(track.id = trtack.id)
+  rename(track.id = id)
 
 nbp_combined <- full_join(other_bad_playlist,another__bad_playlist, by = "track.id")
 
 trash_songs_df <- full_join(trash_songs_df,nbp_combined,by = "track.id")
 
+pip <- full_join(trash_songs_df, all_songs_df, by = "track.id")
 
-table(all_songs_df$song_group, all_songs_df$key)
+pip <- bind_rows(list(unpopular = trash_songs_df, popular = good_songs_df), 
+                          .id= "song_group")
 
-list()
+#cross tabulations table
+table(pip$song_group,pip$key)
+
+all_songs_df |>
+  list(all_songs_df$key,"c" = 0)
 ```
 
 
