@@ -18,7 +18,14 @@ library(ggthemes)
 Import data that was set up in the notebook `set_up_data.Rmd`. 
 
 ```{r}
+trash_songs_df <- read_rds(file.path("data","trash_songs_df.rds"))
+
+good_songs_df <- read_rds(file.path("data","good_songs_df.rds"))
+
 all_songs_df <- readRDS(file.path("data", "all_songs.RDS"))
+
+all_songs_df <- bind_rows(list(unpopular = trash_songs_df, popular = good_songs_df), 
+                          .id= "song_group")
 ```
 
 ```{r}
@@ -212,16 +219,8 @@ all_songs_df |>
 
 ```
 
+The above plots show that there's really no noticeable difference in each category, you would think that tempo would be different but it looks like unpopular songs try to mimic popular songs.
 
-```{r}
-other_bad_playlist <- paste0(other_bad_playlist$track.id , collapse = ",")
-
-other_bad_playlist <- get_track_audio_features(other_bad_playlist)
-
-another__bad_playlist <- paste0(another__bad_playlist$track.id , collapse = ",")
-
-another__bad_playlist <- get_track_audio_features(another__bad_playlist)
-```
 
 
 ```{r}

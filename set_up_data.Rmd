@@ -60,7 +60,7 @@ playlists <- c(
 good_songs <- lapply(playlists, get_playlist_tracks)
 
 good_songs_df <- dplyr::bind_rows(good_songs, .id = "year") %>%
-  readr::write_tsv(file.path("data","hit_songs_over_decades"))
+  readr::write_tsv(file.path("data","hit_songs_over_decades.tsv"))
 ```
 
 Now get the audio information for all of those tracks.
@@ -136,6 +136,10 @@ trash_songs_df <- dplyr::inner_join(trash_songs, trash_track_audio, by = "track.
 ## Put all songs in one data frame and save that to an RDS
 
 ```{r}
+saveRDS(trash_songs_df,file.path("data","trash_songs_df.rds"))
+
+saveRDS(good_songs_df,file.path("data","good_songs_df.rds"))
+
 all_songs_df <- bind_rows(list(unpopular = trash_songs_df, popular = good_songs_df), 
                           .id= "song_group")
 
