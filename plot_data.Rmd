@@ -75,7 +75,8 @@ good_songs_df |>
 
 ```
 
-
+## Release year and audio info
+The following plots examine the question "Have audio qualities of popular songs changed over time?". To examine this we've plotted the release date against various audio qualities of the most popular songs. 
 ```{r}
 # Start making some plots with ggplot2 and explore possible relationships between the year of the song and any other variable that we might have in the dataset that you think may be related in some way. 
 # Also maybe look at popularity and audio information 
