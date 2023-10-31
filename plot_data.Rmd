@@ -28,6 +28,11 @@ all_songs_df <- bind_rows(list(unpopular = trash_songs_df, popular = good_songs_
                           .id= "song_group")
 ```
 
+I grabbed the top five songs each year and compared the tempo of all the songs vs the top five and this showed that the tempo was more or less the same throughout each decade.
+
+
+top_five_all means the top 5 songs in each year
+
 ```{r}
 # grabbing every variable for further use
 top_five_all <- good_songs_df |>
@@ -44,14 +49,20 @@ good_songs_df |>
 top_five_all |>
   ggplot(aes(x = year, y = tempo)) +
   geom_point()
+```
 
-# the energy of the songs does go up half way through the 90s and 2000s but they do drop back down in the 2010s
+The energy of the songs start to rise half way through the 90s and 2000s so it does look like energy matters.
+
+```{r}
 top_five_all |>
   ggplot(aes(x = release_date, y = energy)) +
   geom_point() +
    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
 
-# the loudness seems to start to increase through out the 90s on into the 2000s 
+The loudness seems to start to increase through out the 90s on into the 2000s. 
+
+```{r}
 top_five_all |>
   ggplot(aes(x = release_date, y = loudness)) +
   geom_point() +
@@ -61,8 +72,11 @@ good_songs_df |>
   ggplot(aes(x = release_date, y = loudness)) +
   geom_point() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
 
-# this also seems to increase even though any song can be danced to, also take note that there are less songs as the years increase
+This also seems to increase even though any song can be danced to, also take note that there are less songs as the years increase.
+
+```{r}
 top_five_all |>
   ggplot(aes(x = release_date, y = danceability)) +
   geom_point() +
@@ -105,6 +119,7 @@ top_songs_df <- good_songs_df |>
   top_n(1,track.popularity)
 ```
 
+This shows a side by side comparison of the top 3-5 popularity each year, this also shows that songs in the late 90s to the 2010s were very popular.
 
 ```{r}
 top_songs_df |>
@@ -114,12 +129,19 @@ top_songs_df |>
     title = "Top 3-5 songs each year",
     y = "popularity"
   )
+```
 
+I faceted each year to get a better look at each song group by comparing their popularities side by side, for a better view.
+
+```{r}
 top_songs_df |>
   ggplot(aes(x = track.name, y = track.popularity,color = year)) +
   geom_point() +
   facet_wrap(vars(year))
+```
+I wanted to see if there were any noticeable differences between every song in each year turns out there wasn't they are pretty consistent.
 
+```{r}
 good_songs_df |>
   ggplot(aes(x = year, y = track.popularity)) +
   geom_point() +
@@ -129,7 +151,11 @@ good_songs_df |>
        y = "popularity") +
    theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
   ggthemes::theme_solarized()
+```
 
+
+
+```{r}
 top_songs_df |>
   ggplot(aes(x = track.name, y = track.popularity, fill = year)) +
   geom_bar(stat = "identity") +
@@ -150,6 +176,9 @@ most_pop_song_each_year |>
 
 very unpopular songs having low ratings in popularity this playlist is filled with ear stredding ear bleeding horrible covers of songs
 
+
+First looks at the trash_songs dataset
+
 ```{r}
 trash_songs |>
   ggplot(aes(x = track.name, y = track.popularity)) +
@@ -169,6 +198,7 @@ running t test between the popular songs and the unpopular songs
 ```{r}
 t.test(trash_songs$track.popularity,top_songs_df$track.popularity)
 ```
+
 This shows that there is indeed a difference in popularity in our two song sets. This help validate our approach of using these two song sets to examine what variables might determine song popularity.
 
 
@@ -181,6 +211,7 @@ ggplot(data = all_songs_df, aes(x = song_group, y = danceability)) +
   geom_violin()
 ```
 
+The set of plots below are comparing the popular and the unpopular songs to see if any of them have any noticeable differences but there actually is much of a difference between unpopular and popular songs for any of these variables.
 
 ```{r}
 all_songs_df |>
