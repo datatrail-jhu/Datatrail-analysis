@@ -153,14 +153,9 @@ good_songs_df |>
   ggthemes::theme_solarized()
 ```
 
-
+This plot shows the number one song in each year, this plot akso shows that as the years go on song popularity rises through the 2000s.
 
 ```{r}
-top_songs_df |>
-  ggplot(aes(x = track.name, y = track.popularity, fill = year)) +
-  geom_bar(stat = "identity") +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))
-
 most_pop_song_each_year |>
   ggplot(aes(x = year, y = track.popularity)) +
   geom_point(color = "orange") +
