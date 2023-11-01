@@ -19,8 +19,6 @@ dir.create("data", showWarnings = FALSE)
 id <- "edcc2c4666f64421bf98439ad7daa85f"
 secret <- "40de60ef43ca4831a5344c588a008fb4"
 
-#id <- "518f769c96f344f5b34f907ba779b0b5"
-#secret <- "8b12f741eea043c591f77d570348b842"
 Sys.setenv(SPOTIFY_CLIENT_ID = id)
 Sys.setenv(SPOTIFY_CLIENT_SECRET = secret)
 access_token <- get_spotify_access_token()
@@ -64,6 +62,7 @@ good_songs_df <- dplyr::bind_rows(good_songs, .id = "year") %>%
 ```
 
 Now get the audio information for all of those tracks.
+
 ```{r}
 # We need to send these in batches so we don't reach the request limits
 tracks_list <- split(good_songs_df$track.id, ceiling(seq_along(good_songs_df$track.id)/100))
@@ -83,12 +82,14 @@ track_audio_df <- bind_rows(track_audio_features)
 track_audio_df <- track_audio_df |>
    filter(!is.na(tempo))
 ```
+
 Put all the song info together in one data frame 
 
 ```{r}
 # Combine audio info with song info from above 
 track_audio_df <- track_audio_df |>
-  rename(track.id = id)
+  rename(track.id = id) %>% 
+  dplyr::distinct()
 
 good_songs_df <- dplyr::inner_join(track_audio_df, good_songs_df, by = "track.id")
 ```
@@ -113,10 +114,14 @@ trash_songs <- bind_rows(trash_songs, .id = "playlist_id")
 ```
 
 ```{r}
-# Request info in one batch. 
-trash_tracks <- paste0(trash_songs$track.id , collapse = ",")
-
-trash_track_audio <- get_track_audio_features(trash_tracks) 
+# We need to send these in batches so we don't reach the request limits
+trash_tracks_list <- split(trash_songs$track.id, ceiling(seq_along(trash_songs$track.id)/100))
+# This loops through and requests info on the tracks in chunks
+trash_track_audio <- lapply(trash_tracks_list, function(chunk) {
+  tracks <- paste0(chunk, collapse = ",")
+  Sys.sleep(90)
+  return(get_track_audio_features(tracks))
+})
 
 # Make into a dataframe 
 trash_track_audio <- trash_track_audio %>% 
@@ -124,7 +129,8 @@ trash_track_audio <- trash_track_audio %>%
   readr::write_tsv(file.path("data","trash_audio_info.tsv"))
 
 trash_track_audio <- trash_track_audio |>
-  rename(track.id = id)
+  rename(track.id = id) %>% 
+  dplyr::distinct()
 ```
 
 
@@ -147,38 +153,7 @@ readr::write_rds(all_songs_df , file.path("data", "all_songs.RDS"))
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```{r}
+# Print out session info here
+sessionInfo()
+```
