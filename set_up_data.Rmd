@@ -111,6 +111,8 @@ worst_song_playlist <- c("47LqfQL7pHzfCFl8wOjPn7","1te9h48c8YEPx5LiryMg5l","1FAS
 trash_songs <- lapply(worst_song_playlist, get_playlist_tracks)
 
 trash_songs <- bind_rows(trash_songs, .id = "playlist_id")
+
+readr::write_rds(trash_songs , file.path("data", "trash_songs.RDS"))
 ```
 
 ```{r}

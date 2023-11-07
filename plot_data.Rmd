@@ -2,7 +2,7 @@
 title: "plots"
 author: "jabir"
 date: "2023-09-22"
-output: html_document
+output: pdf_document
 ---
 
 
@@ -26,15 +26,15 @@ all_songs_df <- readRDS(file.path("data", "all_songs.RDS"))
 
 all_songs_df <- bind_rows(list(unpopular = trash_songs_df, popular = good_songs_df), 
                           .id= "song_group")
+
+trash_songs <- read_rds(file.path("data","trash_songs.RDS"))
 ```
 
 I grabbed the top five songs each year and compared the tempo of all the songs vs the top five and this showed that the tempo was more or less the same throughout each decade.
 
-
-top_five_all means the top 5 songs in each year
+`top_five_all` means the top 5 songs in each year
 
 ```{r}
-# grabbing every variable for further use
 top_five_all <- good_songs_df |>
   arrange(desc(track.popularity)) |>
   arrange(year) |>
@@ -168,8 +168,7 @@ most_pop_song_each_year |>
         panel.grid.major = element_line(color = "black"),
         panel.grid.minor = element_line(color = "black"))
 ```
-
-very unpopular songs having low ratings in popularity this playlist is filled with ear stredding ear bleeding horrible covers of songs
+Very unpopular songs having low ratings in popularity this playlist is filled with ear shredding ear bleeding horrible covers of songs
 
 
 First looks at the trash_songs dataset
@@ -240,56 +239,8 @@ all_songs_df |>
 all_songs_df |>
   ggplot(aes(x = song_group, y = key)) +
   geom_violin()
-
-## Now you can clean up trash_songs_df and make plots from it
-
-
 ```
 
-
 ```{r}
-other_bad_playlist <- other_bad_playlist |>
-  bind_rows() |>
-  write_tsv(file.path("data","other_bad_playlist.tsv"))
-
-another__bad_playlist <- another__bad_playlist |>
-  bind_rows() |>
-  write_tsv(file.path("data","another_bad_playlist.tsv"))
-```
-
-join both new datasets. 
-
-nbp_combined stands for new bad playlist combined
-
-```{r}
-other_bad_playlist <- other_bad_playlist |>
-  rename(track.id = id)
-
-another__bad_playlist <- another__bad_playlist |>
-  rename(track.id = id)
-
-nbp_combined <- full_join(other_bad_playlist,another__bad_playlist, by = "track.id")
-
-trash_songs_df <- full_join(trash_songs_df,nbp_combined,by = "track.id")
-
-pip <- full_join(trash_songs_df, all_songs_df, by = "track.id")
-
-pip <- bind_rows(list(unpopular = trash_songs_df, popular = good_songs_df), 
-                          .id= "song_group")
-
-#cross tabulations table
 table(pip$song_group,pip$key)
-
-all_songs_df |>
-  list(all_songs_df$key,"c" = 0)
 ```
-
-
-
-
-
-
-
-
-
-
