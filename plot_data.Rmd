@@ -122,13 +122,14 @@ top_songs_df <- good_songs_df |>
 This shows a side by side comparison of the top 3-5 popularity each year, this also shows that songs in the late 90s to the 2010s were very popular.
 
 ```{r}
-top_songs_df |>
+plot1 <- top_songs_df |>
   ggplot(aes(x = year, y = track.popularity)) +
   geom_point() +
   labs(
     title = "Top 3-5 songs each year",
     y = "popularity"
-  )
+  ) +
+  theme(axis.text.x = element_text(angle = 40,hjust = 1))
 ```
 
 I faceted each year to get a better look at each song group by comparing their popularities side by side, for a better view.
@@ -142,7 +143,7 @@ top_songs_df |>
 I wanted to see if there were any noticeable differences between every song in each year turns out there wasn't they are pretty consistent.
 
 ```{r}
-good_songs_df |>
+plot2 <- good_songs_df |>
   ggplot(aes(x = year, y = track.popularity)) +
   geom_point() +
   labs(title = "Every song in each year",
@@ -150,13 +151,14 @@ good_songs_df |>
        x = "year",
        y = "popularity") +
    theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
-  ggthemes::theme_solarized()
+  ggthemes::theme_solarized() +
+  theme(axis.text.x = element_text(angle = 40,hjust = 1))
 ```
 
 This plot shows the number one song in each year, this plot also shows that as the years go on song popularity rises through the 2000s.
 
 ```{r}
-most_pop_song_each_year |>
+plot3 <- most_pop_song_each_year |>
   ggplot(aes(x = year, y = track.popularity)) +
   geom_point(color = "orange") +
   theme(axis.text.x = element_text(angle = 40,hjust = 1)) +
@@ -243,4 +245,10 @@ all_songs_df |>
 
 ```{r}
 table(pip$song_group,pip$key)
+```
+
+```{r}
+ggsave("plot1.png",plot = plot1, path = "plots")
+ggsave("plot2.png",plot = plot2, path = "plots")
+ggsave("plot3.png",plot = plot3, path = "plots")
 ```
