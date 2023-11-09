@@ -241,6 +241,14 @@ all_songs_df |>
 all_songs_df |>
   ggplot(aes(x = song_group, y = key)) +
   geom_violin()
+
+all_songs_df |>
+  ggplot(aes(x = song_group, y = valence)) +
+  geom_violin()
+
+all_songs_df |>
+  ggplot(aes(x = song_group, y = speechiness)) +
+  geom_violin()
 ```
 
 ```{r}
