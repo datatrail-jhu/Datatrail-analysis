@@ -11,7 +11,7 @@
 
 
 
-<title>R Notebook</title>
+<title>Spotify Set up data</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1746,7 +1746,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">R Notebook</h1>
+<h1 class="title toc-ignore">Spotify Set up data</h1>
 
 </div>
 
@@ -1754,8 +1754,8 @@ display: none;
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShcInNwb3RpZnlyXCIpXG5saWJyYXJ5KHRpZHl2ZXJzZSlcbmxpYnJhcnkobHVicmlkYXRlKVxubGlicmFyeShjb3JycGxvdClcbmxpYnJhcnkodXNldGhpcylcbmxpYnJhcnkoZ2d0aGVtZXMpXG5cbmRpci5jcmVhdGUoXCJkYXRhXCIsIHNob3dXYXJuaW5ncyA9IEZBTFNFKVxuYGBgIn0= -->
-<pre class="r"><code>library(&quot;spotifyr&quot;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShzcG90aWZ5cilcbmxpYnJhcnkodGlkeXZlcnNlKVxubGlicmFyeShsdWJyaWRhdGUpXG5saWJyYXJ5KGNvcnJwbG90KVxubGlicmFyeSh1c2V0aGlzKVxubGlicmFyeShnZ3RoZW1lcylcblxuZGlyLmNyZWF0ZShcImRhdGFcIiwgc2hvd1dhcm5pbmdzID0gRkFMU0UpXG5gYGAifQ== -->
+<pre class="r"><code>library(spotifyr)
 library(tidyverse)
 library(lubridate)
 library(corrplot)
@@ -1768,18 +1768,18 @@ dir.create(&quot;data&quot;, showWarnings = FALSE)</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2lkIDwtIFwiZWRjYzJjNDY2NmY2NDQyMWJmOTg0MzlhZDdkYWE4NWZcIlxuI3NlY3JldCA8LSBcIjQwZGU2MGVmNDNjYTQ4MzFhNTM0NGM1ODhhMDA4ZmI0XCJcblxuaWQgPC0gXCI1MThmNzY5Yzk2ZjM0NGY1YjM0ZjkwN2JhNzc5YjBiNVwiXG5zZWNyZXQgPC0gXCI4YjEyZjc0MWVlYTA0M2M1OTFmNzdkNTcwMzQ4Yjg0MlwiXG5TeXMuc2V0ZW52KFNQT1RJRllfQ0xJRU5UX0lEID0gaWQpXG5TeXMuc2V0ZW52KFNQT1RJRllfQ0xJRU5UX1NFQ1JFVCA9IHNlY3JldClcbmFjY2Vzc190b2tlbiA8LSBnZXRfc3BvdGlmeV9hY2Nlc3NfdG9rZW4oKVxuYGBgIn0= -->
-<pre class="r"><code>#id &lt;- &quot;edcc2c4666f64421bf98439ad7daa85f&quot;
-#secret &lt;- &quot;40de60ef43ca4831a5344c588a008fb4&quot;
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaWQgPC0gXCJlZGNjMmM0NjY2ZjY0NDIxYmY5ODQzOWFkN2RhYTg1ZlwiXG5zZWNyZXQgPC0gXCI0MGRlNjBlZjQzY2E0ODMxYTUzNDRjNTg4YTAwOGZiNFwiXG5cblN5cy5zZXRlbnYoU1BPVElGWV9DTElFTlRfSUQgPSBpZClcblN5cy5zZXRlbnYoU1BPVElGWV9DTElFTlRfU0VDUkVUID0gc2VjcmV0KVxuYWNjZXNzX3Rva2VuIDwtIGdldF9zcG90aWZ5X2FjY2Vzc190b2tlbigpXG5gYGAifQ== -->
+<pre class="r"><code>id &lt;- &quot;edcc2c4666f64421bf98439ad7daa85f&quot;
+secret &lt;- &quot;40de60ef43ca4831a5344c588a008fb4&quot;
 
-id &lt;- &quot;518f769c96f344f5b34f907ba779b0b5&quot;
-secret &lt;- &quot;8b12f741eea043c591f77d570348b842&quot;
 Sys.setenv(SPOTIFY_CLIENT_ID = id)
 Sys.setenv(SPOTIFY_CLIENT_SECRET = secret)
 access_token &lt;- get_spotify_access_token()</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<div id="set-up-hit-songs-data" class="section level2">
+<h2>Set up hit songs data</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxheWxpc3RzIDwtIGMoXG4gIFwiMTk3OFwiID0gXCIzbXQyeXN5bFFRMmNjY0RQeUdmS0lEXCIsXG4gIFwiMTk3OVwiID0gXCI2YkhqQkNGTjhMcWowSzU0UldGY2k4XCIsIFxuICBcIjE5ODBcIiA9IFwiN0RDaDZtT3ZhRUdNVnBoMjVrN2h5TlwiLCBcbiAgXCIxOTgxXCIgPSBcIjV3YkhINERxRjRBVnVHbWpYSThrY1dcIixcbiAgXCIxOTgyXCIgPSBcIjFiazZ0TzZkNW9lczZuMHZoQUNpNXhcIixcbiAgXCIxOTgzXCIgPSBcIjdHTjF1bGd6WEJXcG41VkFEQVJrTmRcIixcbiAgXCIxOTg0XCIgPSBcIjEwUXhSYWc1RG9LU1IwaU93WjQ4THRcIixcbiAgXCIxOTg1XCIgPSBcIjdmR3RYaUU4cWJRenFFaXNIdzVDTFNcIixcbiAgXCIxOTg2XCIgPSBcIjRyaGdBSW5vOU9pb3BVek5oT1pEYmNcIixcbiAgXCIxOTg3XCIgPSBcIjNmbmlWTThwYk1xOGpjUjIzYVZJWThcIixcbiAgXCIxOTg4XCIgPSBcIjFMQ1VxYUczWmJGbnBKd2VWMWxyajFcIixcbiAgXCIxOTg5XCIgPSBcIjVaalpiVEhjNkpCVnU5MjFod2M2djJcIixcbiAgXCIxOTkxXCIgPSBcIjYxRnVzZ2xRanUweVhwejN2N25ZZDVcIixcbiAgXCIxOTkyXCIgPSBcIjBwNlZ3SHFBWk5WOXh3NUh1SUtISmRcIixcbiAgXCIxOTkzXCIgPSBcIjM1d1pxc3pkeVhORkNBenR5TFdsZ1RcIixcbiAgXCIxOTk1XCIgPSBcIjV6WWdtbVJwOW96THN0VnJ5MUpMYndcIixcbiAgXCIxOTk2XCIgPSBcIjBZS2JqTGdDUHNwN0szazJKSDROWndcIiwgXG4gIFwiMTk5N1wiID0gXCI2TmV3elJnZ3pSREJCUG93UnVYQm9yXCIsIFxuICBcIjE5OThcIiA9IFwiNjJGQ25HTTgzVld2dHY2ekFsTWdUZFwiLCBcbiAgXCIxOTk5XCIgPSBcIjBwbnpzSDh6S3ZueW1OS09mUHJUMVBcIixcbiAgXCIyMDAwc1wiID0gXCI0Y01MeUlEQ2g0WDkwd2d5RXdZbmVOXCIsXG4gIFwiMjAxMFwiID0gXCI1bmFxamJ5M3hJQ3ZKdGUzUU12SGNzXCJcbiAgKVxuXG5gYGAifQ== -->
@@ -1813,45 +1813,51 @@ access_token &lt;- get_spotify_access_token()</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc29uZ3MgPC0gbGFwcGx5KHBsYXlsaXN0cywgZ2V0X3BsYXlsaXN0X3RyYWNrcylcblxuc29uZ3NfZGYgPC0gZHBseXI6OmJpbmRfcm93cyhzb25ncywgLmlkID0gXCJ5ZWFyXCIpICU+JVxuICByZWFkcjo6d3JpdGVfdHN2KGZpbGUucGF0aChcImRhdGFcIixcInNvbmdzX292ZXJfZGVjYWRlcy50c3ZcIikpXG5gYGAifQ== -->
-<pre class="r"><code>songs &lt;- lapply(playlists, get_playlist_tracks)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ29vZF9zb25ncyA8LSBsYXBwbHkocGxheWxpc3RzLCBnZXRfcGxheWxpc3RfdHJhY2tzKVxuXG5nb29kX3NvbmdzX2RmIDwtIGRwbHlyOjpiaW5kX3Jvd3MoZ29vZF9zb25ncywgLmlkID0gXCJ5ZWFyXCIpICU+JVxuICByZWFkcjo6d3JpdGVfdHN2KGZpbGUucGF0aChcImRhdGFcIixcImhpdF9zb25nc19vdmVyX2RlY2FkZXMudHN2XCIpKVxuYGBgIn0= -->
+<pre class="r"><code>good_songs &lt;- lapply(playlists, get_playlist_tracks)
 
-songs_df &lt;- dplyr::bind_rows(songs, .id = &quot;year&quot;) %&gt;%
-  readr::write_tsv(file.path(&quot;data&quot;,&quot;songs_over_decades.tsv&quot;))</code></pre>
+good_songs_df &lt;- dplyr::bind_rows(good_songs, .id = &quot;year&quot;) %&gt;%
+  readr::write_tsv(file.path(&quot;data&quot;,&quot;hit_songs_over_decades.tsv&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Now get the audio information for all of those tracks.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBXZSBuZWVkIHRvIHNlbmQgdGhlc2UgaW4gYmF0Y2hlcyBzbyB3ZSBkb24ndCByZWFjaCB0aGUgcmVxdWVzdCBsaW1pdHNcbnRyYWNrc19saXN0IDwtIHNwbGl0KGdvb2Rfc29uZ3NfZGYkdHJhY2suaWQsIGNlaWxpbmcoc2VxX2Fsb25nKGdvb2Rfc29uZ3NfZGYkdHJhY2suaWQpLzEwMCkpXG4jIFRoaXMgbG9vcHMgdGhyb3VnaCBhbmQgcmVxdWVzdHMgaW5mbyBvbiB0aGUgdHJhY2tzIGluIGNodW5rc1xudHJhY2tfYXVkaW9fZmVhdHVyZXMgPC0gbGFwcGx5KHRyYWNrc19saXN0LCBmdW5jdGlvbihjaHVuaykge1xuICB0cmFja3MgPC0gcGFzdGUwKGNodW5rLCBjb2xsYXBzZSA9IFwiLFwiKVxuICBTeXMuc2xlZXAoOTApXG4gIHJldHVybihnZXRfdHJhY2tfYXVkaW9fZmVhdHVyZXModHJhY2tzKSlcbn0pXG5gYGAifQ== -->
+<pre class="r"><code># We need to send these in batches so we don&#39;t reach the request limits
+tracks_list &lt;- split(good_songs_df$track.id, ceiling(seq_along(good_songs_df$track.id)/100))
+# This loops through and requests info on the tracks in chunks
+track_audio_features &lt;- lapply(tracks_list, function(chunk) {
+  tracks &lt;- paste0(chunk, collapse = &quot;,&quot;)
+  Sys.sleep(90)
+  return(get_track_audio_features(tracks))
+})</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBXRSBuZWVkIHRvIHNlbmQgdGhlc2UgaW4gYmF0Y2hlcyBzbyB3ZSBkb24ndCByZWFjaCB0aGUgcmVxdWVzdCBsaW1pdHNcbnNwbGl0KHNvbmdzX2RmJHRyYWNrLmlkKVxuXG5gYGAifQ== -->
-<pre class="r"><code># WE need to send these in batches so we don&#39;t reach the request limits
-split(songs_df$track.id)
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gc3BsaXQuZGVmYXVsdChzb25nc19kZiR0cmFjay5pZCkgOiBcbiAgYXJndW1lbnQgXCJmXCIgaXMgbWlzc2luZywgd2l0aCBubyBkZWZhdWx0XG4ifQ== -->
-<pre><code>Error in split.default(songs_df$track.id) : 
-  argument &quot;f&quot; is missing, with no default</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG50cmFja19hdWRpb19pbmZvIDwtIHRyYWNrX2F1ZGlvX2luZm9bLXdoaWNoKHVubGlzdChsYXBwbHkodHJhY2tfYXVkaW9faW5mbywgaXMubmEpKSAhPSAxOCldXG5cbnRyYWNrX2F1ZGlvX2luZm8gJT4lIFxuICBkcGx5cjo6c2VsZWN0KClcbiAgZHBseXI6OmJpbmRfcm93cyhzb25ncykgJT4lIFxuICByZWFkcjo6d3JpdGVfdHN2KGZpbGUucGF0aChcImRhdGFcIixcImF1ZGlvX2luZm8udHN2XCIpKVxuYGBgIn0= -->
-<pre class="r"><code>
-track_audio_info &lt;- track_audio_info[-which(unlist(lapply(track_audio_info, is.na)) != 18)]
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDb2xsYXBzZSBiYWNrIGRvd24gdG8gYSBkYXRhIGZyYW1lXG50cmFja19hdWRpb19kZiA8LSBiaW5kX3Jvd3ModHJhY2tfYXVkaW9fZmVhdHVyZXMpXG5cbiMgR2V0IHJpZCBvZiBzb25ncyB0aGF0IGRvbid0IGhhdmUgYXVkaW8gaW5mb1xudHJhY2tfYXVkaW9fZGYgPC0gdHJhY2tfYXVkaW9fZGYgfD5cbiAgIGZpbHRlcighaXMubmEodGVtcG8pKVxuYGBgIn0= -->
+<pre class="r"><code># Collapse back down to a data frame
+track_audio_df &lt;- bind_rows(track_audio_features)
 
-track_audio_info %&gt;% 
-  dplyr::select()
-  dplyr::bind_rows(songs) %&gt;% 
-  readr::write_tsv(file.path(&quot;data&quot;,&quot;audio_info.tsv&quot;))</code></pre>
+# Get rid of songs that don&#39;t have audio info
+track_audio_df &lt;- track_audio_df |&gt;
+   filter(!is.na(tempo))</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Put all the song info together in one data frame</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBXcml0ZSBjb2RlIGhlcmUgdGhhdCB3b3VsZCB1c2UgZHBseXI6OmlubmVyX2pvaW4oKSB0byBqb2luIHRvZ2V0aGVyIHRyYWNrX2F1ZGlvX2luZm8gYW5kIHNvbmdzX2RmIGJ5IG1hdGNoaW5nIHRoZWlyIHNvbmdzIGZvciB0aGUgJ2J5JyBhcmd1bWVudFxuY29tYmluZWRfZGYgPC0gZHBseXI6OmlubmVyX2pvaW4odHJhY2tfYXVkaW9faW5mbyxzb25nc19kZl9jbGVhbiwgYnkgPSBcInRyYWNrLmlkXCIpXG5gYGAifQ== -->
-<pre class="r"><code># Write code here that would use dplyr::inner_join() to join together track_audio_info and songs_df by matching their songs for the &#39;by&#39; argument
-combined_df &lt;- dplyr::inner_join(track_audio_info,songs_df_clean, by = &quot;track.id&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDb21iaW5lIGF1ZGlvIGluZm8gd2l0aCBzb25nIGluZm8gZnJvbSBhYm92ZSBcbnRyYWNrX2F1ZGlvX2RmIDwtIHRyYWNrX2F1ZGlvX2RmIHw+XG4gIHJlbmFtZSh0cmFjay5pZCA9IGlkKSAlPiUgXG4gIGRwbHlyOjpkaXN0aW5jdCgpXG5cbmdvb2Rfc29uZ3NfZGYgPC0gZHBseXI6OmlubmVyX2pvaW4odHJhY2tfYXVkaW9fZGYsIGdvb2Rfc29uZ3NfZGYsIGJ5ID0gXCJ0cmFjay5pZFwiKVxuYGBgIn0= -->
+<pre class="r"><code># Combine audio info with song info from above 
+track_audio_df &lt;- track_audio_df |&gt;
+  rename(track.id = id) %&gt;% 
+  dplyr::distinct()
+
+good_songs_df &lt;- dplyr::inner_join(track_audio_df, good_songs_df, by = &quot;track.id&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1860,294 +1866,76 @@ combined_df &lt;- dplyr::inner_join(track_audio_info,songs_df_clean, by = &quot;
 “1978-04-04”</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29tYmluZWRfZGYgPC0gY29tYmluZWRfZGYgfD4gXG4gZHBseXI6Om11dGF0ZShyZWxlYXNlX2RhdGUgPSBzdHJpbmdyOjp3b3JkKHRyYWNrLmFsYnVtLnJlbGVhc2VfZGF0ZSwgc2VwID0gXCItXCIsIDEpKSB8PiBcbiBkcGx5cjo6ZmlsdGVyKCFpcy5uYShyZWxlYXNlX2RhdGUpKVxuYGBgIn0= -->
-<pre class="r"><code>combined_df &lt;- combined_df |&gt; 
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ29vZF9zb25nc19kZiA8LSBnb29kX3NvbmdzX2RmIHw+IFxuIGRwbHlyOjptdXRhdGUocmVsZWFzZV9kYXRlID0gc3RyaW5ncjo6d29yZCh0cmFjay5hbGJ1bS5yZWxlYXNlX2RhdGUsIHNlcCA9IFwiLVwiLCAxKSkgfD4gXG4gZHBseXI6OmZpbHRlcighaXMubmEocmVsZWFzZV9kYXRlKSlcbmBgYCJ9 -->
+<pre class="r"><code>good_songs_df &lt;- good_songs_df |&gt; 
  dplyr::mutate(release_date = stringr::word(track.album.release_date, sep = &quot;-&quot;, 1)) |&gt; 
  dplyr::filter(!is.na(release_date))</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Collect all the unpopular songs playlist information</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBXcml0ZSBjb2RlIGhlcmUgdGhhdCByZW1vdmVzIGNvbHVtbnMgYXJlIHVubmVjZXNzYXJ5IG9yIGp1c3QgbG9vayBsaWtlIGEgYnVuY2ggb2YgamFyZ29uL2dhcmJhZ2UgZHBseXI6OnNlbGVjdCgpXG5zb25nc19kZl9jbGVhbiA8LSBzb25nc19kZiB8PlxuICBzZWxlY3QoeWVhcixhZGRlZF9hdCx0cmFjay5pZCx0cmFjay5uYW1lLHRyYWNrLnBvcHVsYXJpdHksdHJhY2suYWxidW0ubmFtZSx0cmFjay5hbGJ1bS5yZWxlYXNlX2RhdGUsdHJhY2suYWxidW0udG90YWxfdHJhY2tzLCByZWxlYXNlX2RhdGUpXG5cbnRyYWNrX2F1ZGlvX2luZm8gPC0gdHJhY2tfYXVkaW9faW5mbyB8PlxuICBiaW5kX3Jvd3MoKSB8PlxuICBtdXRhdGUodHJhY2suaWQgPSBpZClcbmBgYCJ9 -->
-<pre class="r"><code># Write code here that removes columns are unnecessary or just look like a bunch of jargon/garbage dplyr::select()
-songs_df_clean &lt;- songs_df |&gt;
-  select(year,added_at,track.id,track.name,track.popularity,track.album.name,track.album.release_date,track.album.total_tracks, release_date)
-
-track_audio_info &lt;- track_audio_info |&gt;
-  bind_rows() |&gt;
-  mutate(track.id = id)</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBXcml0ZSBjb2RlIGhlcmUgdGhhdCBcblxuYGBgIn0= -->
-<pre class="r"><code># Write code here that 
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<div id="candace-and-jabir-pair-code" class="section level3">
-<h3>Candace and Jabir pair code</h3>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29tYmluZWRfZGYgfD4gXG5nZ3Bsb3QyOjpnZ3Bsb3QoZ2dwbG90Mjo6YWVzKHJlbGVhc2VfZGF0ZSwgdHJhY2sucG9wdWxhcml0eSkpICsgXG4gIGdncGxvdDI6Omdlb21fcG9pbnQoKSArIFxuICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDkwLCB2anVzdCA9IDAuNSwgaGp1c3Q9MSkpXG5gYGAifQ== -->
-<pre class="r"><code>combined_df |&gt; 
-ggplot2::ggplot(ggplot2::aes(release_date, track.popularity)) + 
-  ggplot2::geom_point() + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucG9wX3Zhcl9kZiA8LSBjb21iaW5lZF9kZiB8PiBcbiAgZHBseXI6OnNlbGVjdCh0cmFjay5wb3B1bGFyaXR5LCBkYW5jZWFiaWxpdHksIGVuZXJneSwga2V5LCBsb3VkbmVzcywgbW9kZSwgc3BlZWNoaW5lc3MsIGFjb3VzdGljbmVzcywgaW5zdHJ1bWVudGFsbmVzcywgbGl2ZW5lc3MsIHZhbGVuY2UsIHRlbXBvLCBkdXJhdGlvbl9tcywgdGltZV9zaWduYXR1cmUpXG5cbmNvcnJfZGYgPC0gY29yKHBvcF92YXJfZGYpXG5jb3JycGxvdChjb3JyX2RmLCBvcmRlciA9ICdoY2x1c3QnLCBhZGRyZWN0ID0gMilcbmBgYCJ9 -->
-<pre class="r"><code>pop_var_df &lt;- combined_df |&gt; 
-  dplyr::select(track.popularity, danceability, energy, key, loudness, mode, speechiness, acousticness, instrumentalness, liveness, valence, tempo, duration_ms, time_signature)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBXZSBuZWVkIHRvIHNlbmQgdGhlc2UgaW4gYmF0Y2hlcyBzbyB3ZSBkb24ndCByZWFjaCB0aGUgcmVxdWVzdCBsaW1pdHNcbnRyYXNoX3RyYWNrc19saXN0IDwtIHNwbGl0KHRyYXNoX3NvbmdzJHRyYWNrLmlkLCBjZWlsaW5nKHNlcV9hbG9uZyh0cmFzaF9zb25ncyR0cmFjay5pZCkvMTAwKSlcbiMgVGhpcyBsb29wcyB0aHJvdWdoIGFuZCByZXF1ZXN0cyBpbmZvIG9uIHRoZSB0cmFja3MgaW4gY2h1bmtzXG50cmFzaF90cmFja19hdWRpbyA8LSBsYXBwbHkodHJhc2hfdHJhY2tzX2xpc3QsIGZ1bmN0aW9uKGNodW5rKSB7XG4gIHRyYWNrcyA8LSBwYXN0ZTAoY2h1bmssIGNvbGxhcHNlID0gXCIsXCIpXG4gIFN5cy5zbGVlcCg5MClcbiAgcmV0dXJuKGdldF90cmFja19hdWRpb19mZWF0dXJlcyh0cmFja3MpKVxufSlcblxuIyBNYWtlIGludG8gYSBkYXRhZnJhbWUgXG50cmFzaF90cmFja19hdWRpbyA8LSB0cmFzaF90cmFja19hdWRpbyAlPiUgXG4gIGRwbHlyOjpiaW5kX3Jvd3MoKSAlPiUgXG4gIHJlYWRyOjp3cml0ZV90c3YoZmlsZS5wYXRoKFwiZGF0YVwiLFwidHJhc2hfYXVkaW9faW5mby50c3ZcIikpXG5cbnRyYXNoX3RyYWNrX2F1ZGlvIDwtIHRyYXNoX3RyYWNrX2F1ZGlvIHw+XG4gIHJlbmFtZSh0cmFjay5pZCA9IGlkKSAlPiUgXG4gIGRwbHlyOjpkaXN0aW5jdCgpXG5gYGAifQ== -->
+<pre class="r"><code># We need to send these in batches so we don&#39;t reach the request limits
+trash_tracks_list &lt;- split(trash_songs$track.id, ceiling(seq_along(trash_songs$track.id)/100))
+# This loops through and requests info on the tracks in chunks
+trash_track_audio &lt;- lapply(trash_tracks_list, function(chunk) {
+  tracks &lt;- paste0(chunk, collapse = &quot;,&quot;)
+  Sys.sleep(90)
+  return(get_track_audio_features(tracks))
+})
 
-corr_df &lt;- cor(pop_var_df)
-corrplot(corr_df, order = &#39;hclust&#39;, addrect = 2)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="has-audio-qualities-changed-over-time-for-these-popular-tracks" class="section level2">
-<h2>Has audio qualities changed over time for these popular tracks?</h2>
-<p>For example, are tracks from 1970s louder than tracks from 1980s?</p>
-<p>Make plots, use correlations maybe.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBncmFiYmluZyBldmVyeSB2YXJpYWJsZSBmb3IgZnVydGhlciB1c2VcbnRvcF9maXZlX2FsbCA8LSBjb21iaW5lZF9kZiB8PlxuICBhcnJhbmdlKGRlc2ModHJhY2sucG9wdWxhcml0eSkpIHw+XG4gIGFycmFuZ2UoeWVhcikgfD5cbiAgbXV0YXRlKHllYXIgPSBhcy5mYWN0b3IoeWVhcikpIHw+XG4gIGdyb3VwX2J5KHllYXIpIHw+XG4gIHRvcF9uKDUsdHJhY2sucG9wdWxhcml0eSlcblxuY29tYmluZWRfZGYgfD5cbiAgZ2dwbG90KGFlcyh4ID0geWVhciwgeT0gdGVtcG8pKSArXG4gIGdlb21fcG9pbnQoKVxuXG50b3BfZml2ZV9hbGwgfD5cbiAgZ2dwbG90KGFlcyh4ID0geWVhciwgeSA9IHRlbXBvKSkgK1xuICBnZW9tX3BvaW50KClcblxuIyB0aGUgZW5lcmd5IG9mIHRoZSBzb25ncyBkb2VzIGdvIHVwIGhhbGYgd2F5IHRocm91Z2ggdGhlIDkwcyBhbmQgMjAwMHMgYnV0IHRoZXkgZG8gZHJvcCBiYWNrIGRvd24gaW4gdGhlIDIwMTBzXG50b3BfZml2ZV9hbGwgfD5cbiAgZ2dwbG90KGFlcyh4ID0gcmVsZWFzZV9kYXRlLCB5ID0gZW5lcmd5KSkgK1xuICBnZW9tX3BvaW50KCkgK1xuICAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSA5MCwgdmp1c3QgPSAwLjUsIGhqdXN0PTEpKVxuXG4jIHRoZSBsb3VkbmVzcyBzZWVtcyB0byBzdGFydCB0byBpbmNyZWFzZSB0aHJvdWdoIG91dCB0aGUgOTBzIG9uIGludG8gdGhlIDIwMDBzIFxudG9wX2ZpdmVfYWxsIHw+XG4gIGdncGxvdChhZXMoeCA9IHJlbGVhc2VfZGF0ZSwgeSA9IGxvdWRuZXNzKSkgK1xuICBnZW9tX3BvaW50KCkgK1xuICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDkwLCB2anVzdCA9IDAuNSwgaGp1c3QgPSAxKSlcblxuY29tYmluZWRfZGYgfD5cbiAgZ2dwbG90KGFlcyh4ID0gcmVsZWFzZV9kYXRlLCB5ID0gbG91ZG5lc3MpKSArXG4gIGdlb21fcG9pbnQoKSArXG4gIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gOTAsIHZqdXN0ID0gMC41LCBoanVzdCA9IDEpKVxuXG4jIHRoaXMgYWxzbyBzZWVtcyB0byBpbmNyZWFzZSBldmVuIHRob3VnaCBhbnkgc29uZyBjYW4gYmUgZGFuY2VkIHRvLCBhbHNvIHRha2Ugbm90ZSB0aGF0IHRoZXJlIGFyZSBsZXNzIHNvbmdzIGFzIHRoZSB5ZWFycyBpbmNyZWFzZVxudG9wX2ZpdmVfYWxsIHw+XG4gIGdncGxvdChhZXMoeCA9IHJlbGVhc2VfZGF0ZSwgeSA9IGRhbmNlYWJpbGl0eSkpICtcbiAgZ2VvbV9wb2ludCgpICtcbiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSA5MCwgdmp1c3QgPSAwLjUsIGhqdXN0ID0gMSkpXG5cbmNvbWJpbmVkX2RmIHw+XG4gIGdncGxvdChhZXMoeCA9IHJlbGVhc2VfZGF0ZSwgeSA9IGRhbmNlYWJpbGl0eSkpICtcbiAgZ2VvbV9wb2ludCgpICtcbiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSA5MCwgdmp1c3QgPSAwLjUsIGhqdXN0ID0gMSkpXG5cbmBgYCJ9 -->
-<pre class="r"><code># grabbing every variable for further use
-top_five_all &lt;- combined_df |&gt;
-  arrange(desc(track.popularity)) |&gt;
-  arrange(year) |&gt;
-  mutate(year = as.factor(year)) |&gt;
-  group_by(year) |&gt;
-  top_n(5,track.popularity)
-
-combined_df |&gt;
-  ggplot(aes(x = year, y= tempo)) +
-  geom_point()
-
-top_five_all |&gt;
-  ggplot(aes(x = year, y = tempo)) +
-  geom_point()
-
-# the energy of the songs does go up half way through the 90s and 2000s but they do drop back down in the 2010s
-top_five_all |&gt;
-  ggplot(aes(x = release_date, y = energy)) +
-  geom_point() +
-   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-
-# the loudness seems to start to increase through out the 90s on into the 2000s 
-top_five_all |&gt;
-  ggplot(aes(x = release_date, y = loudness)) +
-  geom_point() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
-
-combined_df |&gt;
-  ggplot(aes(x = release_date, y = loudness)) +
-  geom_point() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
-
-# this also seems to increase even though any song can be danced to, also take note that there are less songs as the years increase
-top_five_all |&gt;
-  ggplot(aes(x = release_date, y = danceability)) +
-  geom_point() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
-
-combined_df |&gt;
-  ggplot(aes(x = release_date, y = danceability)) +
-  geom_point() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBTdGFydCBtYWtpbmcgc29tZSBwbG90cyB3aXRoIGdncGxvdDIgYW5kIGV4cGxvcmUgcG9zc2libGUgcmVsYXRpb25zaGlwcyBiZXR3ZWVuIHRoZSB5ZWFyIG9mIHRoZSBzb25nIGFuZCBhbnkgb3RoZXIgdmFyaWFibGUgdGhhdCB3ZSBtaWdodCBoYXZlIGluIHRoZSBkYXRhc2V0IHRoYXQgeW91IHRoaW5rIG1heSBiZSByZWxhdGVkIGluIHNvbWUgd2F5LiBcbiMgQWxzbyBtYXliZSBsb29rIGF0IHBvcHVsYXJpdHkgYW5kIGF1ZGlvIGluZm9ybWF0aW9uIFxuXG5nZ3Bsb3QyOjpnZ3Bsb3Qoc29uZ3NfZGYsIGdncGxvdDI6OmFlcyh0cmFjay5hbGJ1bS5yZWxlYXNlX2RhdGUsIHRyYWNrLnBvcHVsYXJpdHkpKSArIFxuICBnZ3Bsb3QyOjpnZW9tX3BvaW50KClcblxuY29tYmluZWRfZGYgfD5cbiAgZ2dwbG90KGFlcyh4ID0gdHJhY2sucG9wdWxhcml0eSwgeSA9IHllYXIpKSArXG4gIGdlb21fcG9pbnQoKVxuXG50b3Bfc29uZ3NfZGYgPC0gY29tYmluZWRfZGYgfD5cbiAgc2VsZWN0KHRyYWNrLm5hbWUsdHJhY2sucG9wdWxhcml0eSx5ZWFyKSB8PlxuICBhcnJhbmdlKGRlc2ModHJhY2sucG9wdWxhcml0eSkpIHw+XG4gIGFycmFuZ2UoeWVhcikgfD5cbiAgbXV0YXRlKHllYXIgPSBhcy5mYWN0b3IoeWVhcikpIHw+XG4gIGdyb3VwX2J5KHllYXIpIHw+XG4gIHRvcF9uKDUsdHJhY2sucG9wdWxhcml0eSlcblxuIHRvcF9zb25nc19kZl9vZl9vbmUgPC0gY29tYmluZWRfZGYgfD5cbiAgc2VsZWN0KHRyYWNrLm5hbWUsdHJhY2sucG9wdWxhcml0eSx5ZWFyKSB8PlxuICBhcnJhbmdlKGRlc2ModHJhY2sucG9wdWxhcml0eSkpIHw+XG4gIGFycmFuZ2UoeWVhcikgfD5cbiAgbXV0YXRlKHllYXIgPSBhcy5mYWN0b3IoeWVhcikpIHw+XG4gIGdyb3VwX2J5KHllYXIpIHw+XG4gIHRvcF9uKDEsdHJhY2sucG9wdWxhcml0eSlcbmBgYCJ9 -->
-<pre class="r"><code># Start making some plots with ggplot2 and explore possible relationships between the year of the song and any other variable that we might have in the dataset that you think may be related in some way. 
-# Also maybe look at popularity and audio information 
-
-ggplot2::ggplot(songs_df, ggplot2::aes(track.album.release_date, track.popularity)) + 
-  ggplot2::geom_point()
-
-combined_df |&gt;
-  ggplot(aes(x = track.popularity, y = year)) +
-  geom_point()
-
-top_songs_df &lt;- combined_df |&gt;
-  select(track.name,track.popularity,year) |&gt;
-  arrange(desc(track.popularity)) |&gt;
-  arrange(year) |&gt;
-  mutate(year = as.factor(year)) |&gt;
-  group_by(year) |&gt;
-  top_n(5,track.popularity)
-
- top_songs_df_of_one &lt;- combined_df |&gt;
-  select(track.name,track.popularity,year) |&gt;
-  arrange(desc(track.popularity)) |&gt;
-  arrange(year) |&gt;
-  mutate(year = as.factor(year)) |&gt;
-  group_by(year) |&gt;
-  top_n(1,track.popularity)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudG9wX3NvbmdzX2RmIHw+XG4gIGdncGxvdChhZXMoeCA9IHllYXIsIHkgPSB0cmFjay5wb3B1bGFyaXR5KSkgK1xuICBnZW9tX3BvaW50KCkgK1xuICBsYWJzKFxuICAgIHRpdGxlID0gXCJUb3AgMy01IHNvbmdzIGVhY2ggeWVhclwiLFxuICAgIHkgPSBcInBvcHVsYXJpdHlcIlxuICApXG5cbnRvcF9zb25nc19kZiB8PlxuICBnZ3Bsb3QoYWVzKHggPSB0cmFjay5uYW1lLCB5ID0gdHJhY2sucG9wdWxhcml0eSxjb2xvciA9IHllYXIpKSArXG4gIGdlb21fcG9pbnQoKSArXG4gIGZhY2V0X3dyYXAodmFycyh5ZWFyKSlcblxuY29tYmluZWRfZGYgfD5cbiAgZ2dwbG90KGFlcyh4ID0geWVhciwgeSA9IHRyYWNrLnBvcHVsYXJpdHkpKSArXG4gIGdlb21fcG9pbnQoKSArXG4gIGxhYnModGl0bGUgPSBcIkV2ZXJ5IHNvbmcgaW4gZWFjaCB5ZWFyXCIsXG4gICAgICAgc3VidGl0bGUgPSBcIkFuIG92ZXJhbGwgc2NhbGUgb2YgZWFjaCB5ZWFyXCIsXG4gICAgICAgeCA9IFwieWVhclwiLFxuICAgICAgIHkgPSBcInBvcHVsYXJpdHlcIikgK1xuICAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSA2MCwgaGp1c3QgPSAxKSkgK1xuICBnZ3RoZW1lczo6dGhlbWVfc29sYXJpemVkKClcblxudG9wX3NvbmdzX2RmIHw+XG4gIGdncGxvdChhZXMoeCA9IHRyYWNrLm5hbWUsIHkgPSB0cmFjay5wb3B1bGFyaXR5LCBmaWxsID0geWVhcikpICtcbiAgZ2VvbV9iYXIoc3RhdCA9IFwiaWRlbnRpdHlcIikgK1xuICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDYwLCBoanVzdCA9IDEpKVxuXG50b3Bfc29uZ3NfZGZfb2Zfb25lIHw+XG4gIGdncGxvdChhZXMoeCA9IHllYXIsIHkgPSB0cmFjay5wb3B1bGFyaXR5KSkgK1xuICBnZW9tX3BvaW50KGNvbG9yID0gXCJvcmFuZ2VcIikgK1xuICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDQwLGhqdXN0ID0gMSkpICtcbiAgbGFicyh0aXRsZSA9IFwiTnVtYmVyIG9uZSBtb3N0IHBvcHVsYXIgc29uZyBpbiBlYWNoIHllYXJcIixcbiAgICAgICBzdWJ0aXRsZSA9IFwiRnJvbSAxOTc4LTIwMTBcIixcbiAgICAgICB4ID0gXCJZZWFyXCIsXG4gICAgICAgeSA9IFwicG9wdWxhcml0eVwiKSArXG4gdGhlbWUocGFuZWwuYmFja2dyb3VuZCA9IGVsZW1lbnRfcmVjdChmaWxsID0gXCJibGFja1wiKSxcbiAgICAgICAgcGFuZWwuZ3JpZC5tYWpvciA9IGVsZW1lbnRfbGluZShjb2xvciA9IFwiYmxhY2tcIiksXG4gICAgICAgIHBhbmVsLmdyaWQubWlub3IgPSBlbGVtZW50X2xpbmUoY29sb3IgPSBcImJsYWNrXCIpKVxuYGBgIn0= -->
-<pre class="r"><code>top_songs_df |&gt;
-  ggplot(aes(x = year, y = track.popularity)) +
-  geom_point() +
-  labs(
-    title = &quot;Top 3-5 songs each year&quot;,
-    y = &quot;popularity&quot;
-  )
-
-top_songs_df |&gt;
-  ggplot(aes(x = track.name, y = track.popularity,color = year)) +
-  geom_point() +
-  facet_wrap(vars(year))
-
-combined_df |&gt;
-  ggplot(aes(x = year, y = track.popularity)) +
-  geom_point() +
-  labs(title = &quot;Every song in each year&quot;,
-       subtitle = &quot;An overall scale of each year&quot;,
-       x = &quot;year&quot;,
-       y = &quot;popularity&quot;) +
-   theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
-  ggthemes::theme_solarized()
-
-top_songs_df |&gt;
-  ggplot(aes(x = track.name, y = track.popularity, fill = year)) +
-  geom_bar(stat = &quot;identity&quot;) +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))
-
-top_songs_df_of_one |&gt;
-  ggplot(aes(x = year, y = track.popularity)) +
-  geom_point(color = &quot;orange&quot;) +
-  theme(axis.text.x = element_text(angle = 40,hjust = 1)) +
-  labs(title = &quot;Number one most popular song in each year&quot;,
-       subtitle = &quot;From 1978-2010&quot;,
-       x = &quot;Year&quot;,
-       y = &quot;popularity&quot;) +
- theme(panel.background = element_rect(fill = &quot;black&quot;),
-        panel.grid.major = element_line(color = &quot;black&quot;),
-        panel.grid.minor = element_line(color = &quot;black&quot;))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>very unpopular songs having low ratings in popularity this playlist
-is filled with ear stredding ear bleeding horrible covers of songs</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud29yc3Rfc29uZ19wbGF5bGlzdCA8LSBcIjQ3THFmUUw3cEh6ZkNGbDh3T2pQbjdcIlxuXG50cmFzaF9zb25ncyA8LSBnZXRfcGxheWxpc3RfdHJhY2tzKHdvcnN0X3NvbmdfcGxheWxpc3QpXG5cbnRyYXNoX3NvbmdzIHw+XG4gIGdncGxvdChhZXMoeCA9IHRyYWNrLm5hbWUsIHkgPSB0cmFjay5wb3B1bGFyaXR5KSkgK1xuICBnZW9tX3BvaW50KClcblxudHJhc2hfc29uZ3MgfD5cbiAgZ2dwbG90KGFlcyh4ID0gdHJhY2submFtZSwgeSA9IHRyYWNrLnBvcHVsYXJpdHkpKSArXG4gIGdlb21fYmFyKHN0YXQgPSBcImlkZW50aXR5XCIpXG5cbnRyYXNoX3NvbmdzIHw+XG4gIGdncGxvdChhZXMoeCA9IHRyYWNrLm5hbWUsIHkgPSB0cmFjay5wb3B1bGFyaXR5KSkgK1xuICBnZW9tX2JveHBsb3QoKVxuYGBgIn0= -->
-<pre class="r"><code>worst_song_playlist &lt;- &quot;47LqfQL7pHzfCFl8wOjPn7&quot;
-
-trash_songs &lt;- get_playlist_tracks(worst_song_playlist)
-
-trash_songs |&gt;
-  ggplot(aes(x = track.name, y = track.popularity)) +
-  geom_point()
-
-trash_songs |&gt;
-  ggplot(aes(x = track.name, y = track.popularity)) +
-  geom_bar(stat = &quot;identity&quot;)
-
-trash_songs |&gt;
-  ggplot(aes(x = track.name, y = track.popularity)) +
-  geom_boxplot()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>running t test between the popular songs and the unpopular songs</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudC50ZXN0KHRyYXNoX3NvbmdzJHRyYWNrLnBvcHVsYXJpdHksdG9wX3NvbmdzX2RmJHRyYWNrLnBvcHVsYXJpdHkpXG5gYGAifQ== -->
-<pre class="r"><code>t.test(trash_songs$track.popularity,top_songs_df$track.popularity)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudG9wc29uZ3N2c3RyYXNoIDwtIGJpbmRfcm93cyhsaXN0KHVucG9wdWxhcj10cmFzaF9zb25ncywgcG9wdWxhcj10b3Bfc29uZ3NfZGYpLCAuaWQ9IFwic29uZ19ncm91cFwiKVxuXG50b3Bzb25nc3ZzdHJhc2ggfD5cbiAgZ2dwbG90KGFlcyh4ID0gc29uZ19ncm91cCwgeSA9IHRyYWNrLnBvcHVsYXJpdHkpKSArXG4gIGdlb21fdmlvbGluKClcblxuZ2dwbG90KGRhdGEgPSB0b3Bzb25nc3ZzdHJhc2gsIGFlcyh4ID0gc29uZ19ncm91cCwgeSA9IGRhbmNlYWJpbGl0eSkpICtcbiAgZ2VvbV92aW9saW4oKVxuXG5cbmBgYCJ9 -->
-<pre class="r"><code>topsongsvstrash &lt;- bind_rows(list(unpopular=trash_songs, popular=top_songs_df), .id= &quot;song_group&quot;)
-
-topsongsvstrash |&gt;
-  ggplot(aes(x = song_group, y = track.popularity)) +
-  geom_violin()
-
-ggplot(data = topsongsvstrash, aes(x = song_group, y = danceability)) +
-  geom_violin()
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>getting audio data from trash playlist</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG50cmFzaF9hdWRpb19pbmZvIDwtIHRyYXNoX3NvbmdzICU+JSBcbiAgZHBseXI6OnNlbGVjdCh0cmFjay5pZCkgJT4lIFxuICBwdXJycjo6cG1hcChmdW5jdGlvbih0cmFjay5pZCkge1xuICAgIGdldF90cmFja19hdWRpb19mZWF0dXJlcyh0cmFjay5pZClcbiAgfSkgJT4lIFxuICBkcGx5cjo6YmluZF9yb3dzKCkgJT4lIFxuICByZWFkcjo6d3JpdGVfdHN2KGZpbGUucGF0aChcImRhdGFcIixcInRyYXNoX2F1ZGlvX2luZm8udHN2XCIpKVxuXG50cmFzaF9zb25nc19kZiA8LSBkcGx5cjo6aW5uZXJfam9pbih0cmFzaF9zb25ncywgdHJhc2hfYXVkaW9faW5mbywgYnkgPSBjKFwidHJhY2suaWRcIiA9IFwiaWRcIiApKVxuXG5jb21iaW5lZF9zb25nc19kZiA8LSBiaW5kX3Jvd3MobGlzdCh1bnBvcHVsYXI9dHJhc2hfc29uZ3NfZGYsIHBvcHVsYXI9Y29tYmluZWRfZGYpLCAuaWQ9IFwic29uZ19ncm91cFwiKVxuXG5jb21iaW5lZF9zb25nc19kZiB8PlxucmVhZHI6OndyaXRlX3RzdihmaWxlLnBhdGgoXCJkYXRhXCIsXCJjb21iaW5lZF90cmFzaF9hbmRfcG9wdWxhci50c3ZcIikpXG5cbmNvbWJpbmVkX3NvbmdzX2RmIHw+XG4gIGdncGxvdChhZXMoeCA9IHNvbmdfZ3JvdXAsIHkgPSBkYW5jZWFiaWxpdHkpKSArXG4gIGdlb21fdmlvbGluKClcblxuY29tYmluZWRfc29uZ3NfZGYgfD5cbiAgZ2dwbG90KGFlcyh4ID0gc29uZ19ncm91cCwgeSA9IHRlbXBvKSkgK1xuICBnZW9tX3Zpb2xpbigpXG5cbmNvbWJpbmVkX3NvbmdzX2RmIHw+XG4gIGdncGxvdChhZXMoeCA9IHNvbmdfZ3JvdXAsIHkgPSBsaXZlbmVzcykpICtcbiAgZ2VvbV92aW9saW4oKVxuXG5jb21iaW5lZF9zb25nc19kZiB8PlxuICBnZ3Bsb3QoYWVzKHggPSBzb25nX2dyb3VwLCB5ID0gaW5zdHJ1bWVudGFsbmVzcykpICtcbiAgZ2VvbV92aW9saW4oKVxuXG5jb21iaW5lZF9zb25nc19kZiB8PlxuICBnZ3Bsb3QoYWVzKHggPSBzb25nX2dyb3VwLCB5ID0gZW5lcmd5KSkgK1xuICBnZW9tX3Zpb2xpbigpXG5cbmNvbWJpbmVkX3NvbmdzX2RmIHw+XG4gIGdncGxvdChhZXMoeCA9IHNvbmdfZ3JvdXAsIHkgPSBsb3VkbmVzcykpICtcbiAgZ2VvbV92aW9saW4oKVxuXG5jb21iaW5lZF9zb25nc19kZiB8PlxuICBnZ3Bsb3QoYWVzKHggPSBzb25nX2dyb3VwLCB5ID0gYWNvdXN0aWNuZXNzKSkgK1xuICBnZW9tX3Zpb2xpbigpXG5cbmNvbWJpbmVkX3NvbmdzX2RmIHw+XG4gIGdncGxvdChhZXMoeCA9IHNvbmdfZ3JvdXAsIHkgPSBrZXkpKSArXG4gIGdlb21fdmlvbGluKClcblxuIyMgTm93IHlvdSBjYW4gY2xlYW4gdXAgdHJhc2hfc29uZ3NfZGYgYW5kIG1ha2UgcGxvdHMgZnJvbSBpdFxuYGBgIn0= -->
-<pre class="r"><code>
-trash_audio_info &lt;- trash_songs %&gt;% 
-  dplyr::select(track.id) %&gt;% 
-  purrr::pmap(function(track.id) {
-    get_track_audio_features(track.id)
-  }) %&gt;% 
+# Make into a dataframe 
+trash_track_audio &lt;- trash_track_audio %&gt;% 
   dplyr::bind_rows() %&gt;% 
   readr::write_tsv(file.path(&quot;data&quot;,&quot;trash_audio_info.tsv&quot;))
 
-trash_songs_df &lt;- dplyr::inner_join(trash_songs, trash_audio_info, by = c(&quot;track.id&quot; = &quot;id&quot; ))
-
-combined_songs_df &lt;- bind_rows(list(unpopular=trash_songs_df, popular=combined_df), .id= &quot;song_group&quot;)
-
-combined_songs_df |&gt;
-readr::write_tsv(file.path(&quot;data&quot;,&quot;combined_trash_and_popular.tsv&quot;))
-
-combined_songs_df |&gt;
-  ggplot(aes(x = song_group, y = danceability)) +
-  geom_violin()
-
-combined_songs_df |&gt;
-  ggplot(aes(x = song_group, y = tempo)) +
-  geom_violin()
-
-combined_songs_df |&gt;
-  ggplot(aes(x = song_group, y = liveness)) +
-  geom_violin()
-
-combined_songs_df |&gt;
-  ggplot(aes(x = song_group, y = instrumentalness)) +
-  geom_violin()
-
-combined_songs_df |&gt;
-  ggplot(aes(x = song_group, y = energy)) +
-  geom_violin()
-
-combined_songs_df |&gt;
-  ggplot(aes(x = song_group, y = loudness)) +
-  geom_violin()
-
-combined_songs_df |&gt;
-  ggplot(aes(x = song_group, y = acousticness)) +
-  geom_violin()
-
-combined_songs_df |&gt;
-  ggplot(aes(x = song_group, y = key)) +
-  geom_violin()
-
-## Now you can clean up trash_songs_df and make plots from it</code></pre>
+trash_track_audio &lt;- trash_track_audio |&gt;
+  rename(track.id = id) %&gt;% 
+  dplyr::distinct()</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBQdXQgYXVkaW8gaW5mbyB0b2dldGhlciB3aXRoIG9yaWdpbmFsIHRyYXNoIHNvbmcgaW5mb1xudHJhc2hfc29uZ3NfZGYgPC0gZHBseXI6OmlubmVyX2pvaW4odHJhc2hfc29uZ3MsIHRyYXNoX3RyYWNrX2F1ZGlvLCBieSA9IFwidHJhY2suaWRcIilcbmBgYCJ9 -->
+<pre class="r"><code># Put audio info together with original trash song info
+trash_songs_df &lt;- dplyr::inner_join(trash_songs, trash_track_audio, by = &quot;track.id&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="put-all-songs-in-one-data-frame-and-save-that-to-an-rds" class="section level2">
+<h2>Put all songs in one data frame and save that to an RDS</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2F2ZVJEUyh0cmFzaF9zb25nc19kZixmaWxlLnBhdGgoXCJkYXRhXCIsXCJ0cmFzaF9zb25nc19kZi5yZHNcIikpXG5cbnNhdmVSRFMoZ29vZF9zb25nc19kZixmaWxlLnBhdGgoXCJkYXRhXCIsXCJnb29kX3NvbmdzX2RmLnJkc1wiKSlcblxuYWxsX3NvbmdzX2RmIDwtIGJpbmRfcm93cyhsaXN0KHVucG9wdWxhciA9IHRyYXNoX3NvbmdzX2RmLCBwb3B1bGFyID0gZ29vZF9zb25nc19kZiksIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAuaWQ9IFwic29uZ19ncm91cFwiKVxuXG5yZWFkcjo6d3JpdGVfcmRzKGFsbF9zb25nc19kZiAsIGZpbGUucGF0aChcImRhdGFcIiwgXCJhbGxfc29uZ3MuUkRTXCIpKVxuYGBgIn0= -->
+<pre class="r"><code>saveRDS(trash_songs_df,file.path(&quot;data&quot;,&quot;trash_songs_df.rds&quot;))
+
+saveRDS(good_songs_df,file.path(&quot;data&quot;,&quot;good_songs_df.rds&quot;))
+
+all_songs_df &lt;- bind_rows(list(unpopular = trash_songs_df, popular = good_songs_df), 
+                          .id= &quot;song_group&quot;)
+
+readr::write_rds(all_songs_df , file.path(&quot;data&quot;, &quot;all_songs.RDS&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBQcmludCBvdXQgc2Vzc2lvbiBpbmZvIGhlcmVcbnNlc3Npb25JbmZvKClcbmBgYCJ9 -->
+<pre class="r"><code># Print out session info here
+sessionInfo()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCmBgYHtyfQpsaWJyYXJ5KHNwb3RpZnlyKQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShsdWJyaWRhdGUpCmxpYnJhcnkoY29ycnBsb3QpCmxpYnJhcnkodXNldGhpcykKbGlicmFyeShnZ3RoZW1lcykKCmRpci5jcmVhdGUoImRhdGEiLCBzaG93V2FybmluZ3MgPSBGQUxTRSkKYGBgCgpgYGB7cn0KaWQgPC0gImVkY2MyYzQ2NjZmNjQ0MjFiZjk4NDM5YWQ3ZGFhODVmIgpzZWNyZXQgPC0gIjQwZGU2MGVmNDNjYTQ4MzFhNTM0NGM1ODhhMDA4ZmI0IgoKI2lkIDwtICI1MThmNzY5Yzk2ZjM0NGY1YjM0ZjkwN2JhNzc5YjBiNSIKI3NlY3JldCA8LSAiOGIxMmY3NDFlZWEwNDNjNTkxZjc3ZDU3MDM0OGI4NDIiClN5cy5zZXRlbnYoU1BPVElGWV9DTElFTlRfSUQgPSBpZCkKU3lzLnNldGVudihTUE9USUZZX0NMSUVOVF9TRUNSRVQgPSBzZWNyZXQpCmFjY2Vzc190b2tlbiA8LSBnZXRfc3BvdGlmeV9hY2Nlc3NfdG9rZW4oKQpgYGAKCgoKYGBge3J9CnBsYXlsaXN0cyA8LSBjKAogICIxOTc4IiA9ICIzbXQyeXN5bFFRMmNjY0RQeUdmS0lEIiwKICAiMTk3OSIgPSAiNmJIakJDRk44THFqMEs1NFJXRmNpOCIsIAogICIxOTgwIiA9ICI3RENoNm1PdmFFR01WcGgyNWs3aHlOIiwgCiAgIjE5ODEiID0gIjV3YkhINERxRjRBVnVHbWpYSThrY1ciLAogICIxOTgyIiA9ICIxYms2dE82ZDVvZXM2bjB2aEFDaTV4IiwKICAiMTk4MyIgPSAiN0dOMXVsZ3pYQldwbjVWQURBUmtOZCIsCiAgIjE5ODQiID0gIjEwUXhSYWc1RG9LU1IwaU93WjQ4THQiLAogICIxOTg1IiA9ICI3Zkd0WGlFOHFiUXpxRWlzSHc1Q0xTIiwKICAiMTk4NiIgPSAiNHJoZ0FJbm85T2lvcFV6TmhPWkRiYyIsCiAgIjE5ODciID0gIjNmbmlWTThwYk1xOGpjUjIzYVZJWTgiLAogICIxOTg4IiA9ICIxTENVcWFHM1piRm5wSndlVjFscmoxIiwKICAiMTk4OSIgPSAiNVpqWmJUSGM2SkJWdTkyMWh3YzZ2MiIsCiAgIjE5OTEiID0gIjYxRnVzZ2xRanUweVhwejN2N25ZZDUiLAogICIxOTkyIiA9ICIwcDZWd0hxQVpOVjl4dzVIdUlLSEpkIiwKICAiMTk5MyIgPSAiMzV3WnFzemR5WE5GQ0F6dHlMV2xnVCIsCiAgIjE5OTUiID0gIjV6WWdtbVJwOW96THN0VnJ5MUpMYnciLAogICIxOTk2IiA9ICIwWUtiakxnQ1BzcDdLM2sySkg0Tlp3IiwgCiAgIjE5OTciID0gIjZOZXd6UmdnelJEQkJQb3dSdVhCb3IiLCAKICAiMTk5OCIgPSAiNjJGQ25HTTgzVld2dHY2ekFsTWdUZCIsIAogICIxOTk5IiA9ICIwcG56c0g4ekt2bnltTktPZlByVDFQIiwKICAiMjAwMHMiID0gIjRjTUx5SURDaDRYOTB3Z3lFd1luZU4iLAogICIyMDEwIiA9ICI1bmFxamJ5M3hJQ3ZKdGUzUU12SGNzIgogICkKCmBgYAoKYGBge3J9CnNvbmdzIDwtIGxhcHBseShwbGF5bGlzdHMsIGdldF9wbGF5bGlzdF90cmFja3MpCgpzb25nc19kZiA8LSBkcGx5cjo6YmluZF9yb3dzKHNvbmdzLCAuaWQgPSAieWVhciIpICU+JQogIHJlYWRyOjp3cml0ZV90c3YoZmlsZS5wYXRoKCJkYXRhIiwic29uZ3Nfb3Zlcl9kZWNhZGVzLnRzdiIpKQpgYGAKCmBgYHtyfQojIFdFIG5lZWQgdG8gc2VuZCB0aGVzZSBpbiBiYXRjaGVzIHNvIHdlIGRvbid0IHJlYWNoIHRoZSByZXF1ZXN0IGxpbWl0cwpzcGxpdChzb25nc19kZiR0cmFjay5pZCkKCgp0cmFja19saXN0cyA8LSBwYXN0ZTAocGFzdGUwKCInIiwgc29uZ3NfZGYkdHJhY2suaWQsICInIiksIGNvbGxhcHNlID0gIiwiKQp0cmFja19hdWRpb19pbmZvIDwtIGdldF90cmFja19hdWRpb19mZWF0dXJlcyh0cmFja3MpCmBgYAoKYGBge3J9Cgp0cmFja19hdWRpb19pbmZvIDwtIHRyYWNrX2F1ZGlvX2luZm9bLXdoaWNoKHVubGlzdChsYXBwbHkodHJhY2tfYXVkaW9faW5mbywgaXMubmEpKSAhPSAxOCldCgp0cmFja19hdWRpb19pbmZvICU+JSAKICBkcGx5cjo6c2VsZWN0KCkKICBkcGx5cjo6YmluZF9yb3dzKHNvbmdzKSAlPiUgCiAgcmVhZHI6OndyaXRlX3RzdihmaWxlLnBhdGgoImRhdGEiLCJhdWRpb19pbmZvLnRzdiIpKQpgYGAKCmBgYHtyfQojIFdyaXRlIGNvZGUgaGVyZSB0aGF0IHdvdWxkIHVzZSBkcGx5cjo6aW5uZXJfam9pbigpIHRvIGpvaW4gdG9nZXRoZXIgdHJhY2tfYXVkaW9faW5mbyBhbmQgc29uZ3NfZGYgYnkgbWF0Y2hpbmcgdGhlaXIgc29uZ3MgZm9yIHRoZSAnYnknIGFyZ3VtZW50CmNvbWJpbmVkX2RmIDwtIGRwbHlyOjppbm5lcl9qb2luKHRyYWNrX2F1ZGlvX2luZm8sc29uZ3NfZGZfY2xlYW4sIGJ5ID0gInRyYWNrLmlkIikKYGBgCgpMZXQncyBleHRyYWN0IHRoZSBhY3R1YWwgc29uZyByZWxlYXNlIHllYXIgZnJvbSB0aGUgdmFyaWFibGUgYHRyYWNrLmFsYnVtLnJlbGVhc2VfZGF0ZWAKVGhlIGRhdGVzIGxvb2sgbGlrZSB0aGlzICIxOTc4LTA0LTA0IgoKYGBge3J9CmNvbWJpbmVkX2RmIDwtIGNvbWJpbmVkX2RmIHw+IAogZHBseXI6Om11dGF0ZShyZWxlYXNlX2RhdGUgPSBzdHJpbmdyOjp3b3JkKHRyYWNrLmFsYnVtLnJlbGVhc2VfZGF0ZSwgc2VwID0gIi0iLCAxKSkgfD4gCiBkcGx5cjo6ZmlsdGVyKCFpcy5uYShyZWxlYXNlX2RhdGUpKQpgYGAKCgpgYGB7cn0KIyBXcml0ZSBjb2RlIGhlcmUgdGhhdCByZW1vdmVzIGNvbHVtbnMgYXJlIHVubmVjZXNzYXJ5IG9yIGp1c3QgbG9vayBsaWtlIGEgYnVuY2ggb2YgamFyZ29uL2dhcmJhZ2UgZHBseXI6OnNlbGVjdCgpCnNvbmdzX2RmX2NsZWFuIDwtIHNvbmdzX2RmIHw+CiAgc2VsZWN0KHllYXIsYWRkZWRfYXQsdHJhY2suaWQsdHJhY2submFtZSx0cmFjay5wb3B1bGFyaXR5LHRyYWNrLmFsYnVtLm5hbWUsdHJhY2suYWxidW0ucmVsZWFzZV9kYXRlLHRyYWNrLmFsYnVtLnRvdGFsX3RyYWNrcywgcmVsZWFzZV9kYXRlKQoKdHJhY2tfYXVkaW9faW5mbyA8LSB0cmFja19hdWRpb19pbmZvIHw+CiAgYmluZF9yb3dzKCkgfD4KICBtdXRhdGUodHJhY2suaWQgPSBpZCkKYGBgCgpgYGB7cn0KIyBXcml0ZSBjb2RlIGhlcmUgdGhhdCAKCmBgYAoKCiMjIyBDYW5kYWNlIGFuZCBKYWJpciBwYWlyIGNvZGUKCmBgYHtyfQpjb21iaW5lZF9kZiB8PiAKZ2dwbG90Mjo6Z2dwbG90KGdncGxvdDI6OmFlcyhyZWxlYXNlX2RhdGUsIHRyYWNrLnBvcHVsYXJpdHkpKSArIAogIGdncGxvdDI6Omdlb21fcG9pbnQoKSArIAogIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gOTAsIHZqdXN0ID0gMC41LCBoanVzdD0xKSkKYGBgCgpgYGB7cn0KcG9wX3Zhcl9kZiA8LSBjb21iaW5lZF9kZiB8PiAKICBkcGx5cjo6c2VsZWN0KHRyYWNrLnBvcHVsYXJpdHksIGRhbmNlYWJpbGl0eSwgZW5lcmd5LCBrZXksIGxvdWRuZXNzLCBtb2RlLCBzcGVlY2hpbmVzcywgYWNvdXN0aWNuZXNzLCBpbnN0cnVtZW50YWxuZXNzLCBsaXZlbmVzcywgdmFsZW5jZSwgdGVtcG8sIGR1cmF0aW9uX21zLCB0aW1lX3NpZ25hdHVyZSkKCmNvcnJfZGYgPC0gY29yKHBvcF92YXJfZGYpCmNvcnJwbG90KGNvcnJfZGYsIG9yZGVyID0gJ2hjbHVzdCcsIGFkZHJlY3QgPSAyKQpgYGAKCiMjIEhhcyBhdWRpbyBxdWFsaXRpZXMgY2hhbmdlZCBvdmVyIHRpbWUgZm9yIHRoZXNlIHBvcHVsYXIgdHJhY2tzPyAKCkZvciBleGFtcGxlLCBhcmUgdHJhY2tzIGZyb20gMTk3MHMgbG91ZGVyIHRoYW4gdHJhY2tzIGZyb20gMTk4MHM/IAoKTWFrZSBwbG90cywgdXNlIGNvcnJlbGF0aW9ucyBtYXliZS4gCgpgYGB7cn0KIyBncmFiYmluZyBldmVyeSB2YXJpYWJsZSBmb3IgZnVydGhlciB1c2UKdG9wX2ZpdmVfYWxsIDwtIGNvbWJpbmVkX2RmIHw+CiAgYXJyYW5nZShkZXNjKHRyYWNrLnBvcHVsYXJpdHkpKSB8PgogIGFycmFuZ2UoeWVhcikgfD4KICBtdXRhdGUoeWVhciA9IGFzLmZhY3Rvcih5ZWFyKSkgfD4KICBncm91cF9ieSh5ZWFyKSB8PgogIHRvcF9uKDUsdHJhY2sucG9wdWxhcml0eSkKCmNvbWJpbmVkX2RmIHw+CiAgZ2dwbG90KGFlcyh4ID0geWVhciwgeT0gdGVtcG8pKSArCiAgZ2VvbV9wb2ludCgpCgp0b3BfZml2ZV9hbGwgfD4KICBnZ3Bsb3QoYWVzKHggPSB5ZWFyLCB5ID0gdGVtcG8pKSArCiAgZ2VvbV9wb2ludCgpCgojIHRoZSBlbmVyZ3kgb2YgdGhlIHNvbmdzIGRvZXMgZ28gdXAgaGFsZiB3YXkgdGhyb3VnaCB0aGUgOTBzIGFuZCAyMDAwcyBidXQgdGhleSBkbyBkcm9wIGJhY2sgZG93biBpbiB0aGUgMjAxMHMKdG9wX2ZpdmVfYWxsIHw+CiAgZ2dwbG90KGFlcyh4ID0gcmVsZWFzZV9kYXRlLCB5ID0gZW5lcmd5KSkgKwogIGdlb21fcG9pbnQoKSArCiAgIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gOTAsIHZqdXN0ID0gMC41LCBoanVzdD0xKSkKCiMgdGhlIGxvdWRuZXNzIHNlZW1zIHRvIHN0YXJ0IHRvIGluY3JlYXNlIHRocm91Z2ggb3V0IHRoZSA5MHMgb24gaW50byB0aGUgMjAwMHMgCnRvcF9maXZlX2FsbCB8PgogIGdncGxvdChhZXMoeCA9IHJlbGVhc2VfZGF0ZSwgeSA9IGxvdWRuZXNzKSkgKwogIGdlb21fcG9pbnQoKSArCiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSA5MCwgdmp1c3QgPSAwLjUsIGhqdXN0ID0gMSkpCgpjb21iaW5lZF9kZiB8PgogIGdncGxvdChhZXMoeCA9IHJlbGVhc2VfZGF0ZSwgeSA9IGxvdWRuZXNzKSkgKwogIGdlb21fcG9pbnQoKSArCiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSA5MCwgdmp1c3QgPSAwLjUsIGhqdXN0ID0gMSkpCgojIHRoaXMgYWxzbyBzZWVtcyB0byBpbmNyZWFzZSBldmVuIHRob3VnaCBhbnkgc29uZyBjYW4gYmUgZGFuY2VkIHRvLCBhbHNvIHRha2Ugbm90ZSB0aGF0IHRoZXJlIGFyZSBsZXNzIHNvbmdzIGFzIHRoZSB5ZWFycyBpbmNyZWFzZQp0b3BfZml2ZV9hbGwgfD4KICBnZ3Bsb3QoYWVzKHggPSByZWxlYXNlX2RhdGUsIHkgPSBkYW5jZWFiaWxpdHkpKSArCiAgZ2VvbV9wb2ludCgpICsKICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDkwLCB2anVzdCA9IDAuNSwgaGp1c3QgPSAxKSkKCmNvbWJpbmVkX2RmIHw+CiAgZ2dwbG90KGFlcyh4ID0gcmVsZWFzZV9kYXRlLCB5ID0gZGFuY2VhYmlsaXR5KSkgKwogIGdlb21fcG9pbnQoKSArCiAgdGhlbWUoYXhpcy50ZXh0LnggPSBlbGVtZW50X3RleHQoYW5nbGUgPSA5MCwgdmp1c3QgPSAwLjUsIGhqdXN0ID0gMSkpCgpgYGAKCgpgYGB7cn0KIyBTdGFydCBtYWtpbmcgc29tZSBwbG90cyB3aXRoIGdncGxvdDIgYW5kIGV4cGxvcmUgcG9zc2libGUgcmVsYXRpb25zaGlwcyBiZXR3ZWVuIHRoZSB5ZWFyIG9mIHRoZSBzb25nIGFuZCBhbnkgb3RoZXIgdmFyaWFibGUgdGhhdCB3ZSBtaWdodCBoYXZlIGluIHRoZSBkYXRhc2V0IHRoYXQgeW91IHRoaW5rIG1heSBiZSByZWxhdGVkIGluIHNvbWUgd2F5LiAKIyBBbHNvIG1heWJlIGxvb2sgYXQgcG9wdWxhcml0eSBhbmQgYXVkaW8gaW5mb3JtYXRpb24gCgpnZ3Bsb3QyOjpnZ3Bsb3Qoc29uZ3NfZGYsIGdncGxvdDI6OmFlcyh0cmFjay5hbGJ1bS5yZWxlYXNlX2RhdGUsIHRyYWNrLnBvcHVsYXJpdHkpKSArIAogIGdncGxvdDI6Omdlb21fcG9pbnQoKQoKY29tYmluZWRfZGYgfD4KICBnZ3Bsb3QoYWVzKHggPSB0cmFjay5wb3B1bGFyaXR5LCB5ID0geWVhcikpICsKICBnZW9tX3BvaW50KCkKCnRvcF9zb25nc19kZiA8LSBjb21iaW5lZF9kZiB8PgogIHNlbGVjdCh0cmFjay5uYW1lLHRyYWNrLnBvcHVsYXJpdHkseWVhcikgfD4KICBhcnJhbmdlKGRlc2ModHJhY2sucG9wdWxhcml0eSkpIHw+CiAgYXJyYW5nZSh5ZWFyKSB8PgogIG11dGF0ZSh5ZWFyID0gYXMuZmFjdG9yKHllYXIpKSB8PgogIGdyb3VwX2J5KHllYXIpIHw+CiAgdG9wX24oNSx0cmFjay5wb3B1bGFyaXR5KQoKIHRvcF9zb25nc19kZl9vZl9vbmUgPC0gY29tYmluZWRfZGYgfD4KICBzZWxlY3QodHJhY2submFtZSx0cmFjay5wb3B1bGFyaXR5LHllYXIpIHw+CiAgYXJyYW5nZShkZXNjKHRyYWNrLnBvcHVsYXJpdHkpKSB8PgogIGFycmFuZ2UoeWVhcikgfD4KICBtdXRhdGUoeWVhciA9IGFzLmZhY3Rvcih5ZWFyKSkgfD4KICBncm91cF9ieSh5ZWFyKSB8PgogIHRvcF9uKDEsdHJhY2sucG9wdWxhcml0eSkKYGBgCgoKYGBge3J9CnRvcF9zb25nc19kZiB8PgogIGdncGxvdChhZXMoeCA9IHllYXIsIHkgPSB0cmFjay5wb3B1bGFyaXR5KSkgKwogIGdlb21fcG9pbnQoKSArCiAgbGFicygKICAgIHRpdGxlID0gIlRvcCAzLTUgc29uZ3MgZWFjaCB5ZWFyIiwKICAgIHkgPSAicG9wdWxhcml0eSIKICApCgp0b3Bfc29uZ3NfZGYgfD4KICBnZ3Bsb3QoYWVzKHggPSB0cmFjay5uYW1lLCB5ID0gdHJhY2sucG9wdWxhcml0eSxjb2xvciA9IHllYXIpKSArCiAgZ2VvbV9wb2ludCgpICsKICBmYWNldF93cmFwKHZhcnMoeWVhcikpCgpjb21iaW5lZF9kZiB8PgogIGdncGxvdChhZXMoeCA9IHllYXIsIHkgPSB0cmFjay5wb3B1bGFyaXR5KSkgKwogIGdlb21fcG9pbnQoKSArCiAgbGFicyh0aXRsZSA9ICJFdmVyeSBzb25nIGluIGVhY2ggeWVhciIsCiAgICAgICBzdWJ0aXRsZSA9ICJBbiBvdmVyYWxsIHNjYWxlIG9mIGVhY2ggeWVhciIsCiAgICAgICB4ID0gInllYXIiLAogICAgICAgeSA9ICJwb3B1bGFyaXR5IikgKwogICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDYwLCBoanVzdCA9IDEpKSArCiAgZ2d0aGVtZXM6OnRoZW1lX3NvbGFyaXplZCgpCgp0b3Bfc29uZ3NfZGYgfD4KICBnZ3Bsb3QoYWVzKHggPSB0cmFjay5uYW1lLCB5ID0gdHJhY2sucG9wdWxhcml0eSwgZmlsbCA9IHllYXIpKSArCiAgZ2VvbV9iYXIoc3RhdCA9ICJpZGVudGl0eSIpICsKICB0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDYwLCBoanVzdCA9IDEpKQoKdG9wX3NvbmdzX2RmX29mX29uZSB8PgogIGdncGxvdChhZXMoeCA9IHllYXIsIHkgPSB0cmFjay5wb3B1bGFyaXR5KSkgKwogIGdlb21fcG9pbnQoY29sb3IgPSAib3JhbmdlIikgKwogIHRoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gNDAsaGp1c3QgPSAxKSkgKwogIGxhYnModGl0bGUgPSAiTnVtYmVyIG9uZSBtb3N0IHBvcHVsYXIgc29uZyBpbiBlYWNoIHllYXIiLAogICAgICAgc3VidGl0bGUgPSAiRnJvbSAxOTc4LTIwMTAiLAogICAgICAgeCA9ICJZZWFyIiwKICAgICAgIHkgPSAicG9wdWxhcml0eSIpICsKIHRoZW1lKHBhbmVsLmJhY2tncm91bmQgPSBlbGVtZW50X3JlY3QoZmlsbCA9ICJibGFjayIpLAogICAgICAgIHBhbmVsLmdyaWQubWFqb3IgPSBlbGVtZW50X2xpbmUoY29sb3IgPSAiYmxhY2siKSwKICAgICAgICBwYW5lbC5ncmlkLm1pbm9yID0gZWxlbWVudF9saW5lKGNvbG9yID0gImJsYWNrIikpCmBgYAoKdmVyeSB1bnBvcHVsYXIgc29uZ3MgaGF2aW5nIGxvdyByYXRpbmdzIGluIHBvcHVsYXJpdHkgdGhpcyBwbGF5bGlzdCBpcyBmaWxsZWQgd2l0aCBlYXIgc3RyZWRkaW5nIGVhciBibGVlZGluZyBob3JyaWJsZSBjb3ZlcnMgb2Ygc29uZ3MKCmBgYHtyfQp3b3JzdF9zb25nX3BsYXlsaXN0IDwtICI0N0xxZlFMN3BIemZDRmw4d09qUG43IgoKdHJhc2hfc29uZ3MgPC0gZ2V0X3BsYXlsaXN0X3RyYWNrcyh3b3JzdF9zb25nX3BsYXlsaXN0KQoKdHJhc2hfc29uZ3MgfD4KICBnZ3Bsb3QoYWVzKHggPSB0cmFjay5uYW1lLCB5ID0gdHJhY2sucG9wdWxhcml0eSkpICsKICBnZW9tX3BvaW50KCkKCnRyYXNoX3NvbmdzIHw+CiAgZ2dwbG90KGFlcyh4ID0gdHJhY2submFtZSwgeSA9IHRyYWNrLnBvcHVsYXJpdHkpKSArCiAgZ2VvbV9iYXIoc3RhdCA9ICJpZGVudGl0eSIpCgp0cmFzaF9zb25ncyB8PgogIGdncGxvdChhZXMoeCA9IHRyYWNrLm5hbWUsIHkgPSB0cmFjay5wb3B1bGFyaXR5KSkgKwogIGdlb21fYm94cGxvdCgpCmBgYAoKcnVubmluZyB0IHRlc3QgYmV0d2VlbiB0aGUgcG9wdWxhciBzb25ncyBhbmQgdGhlIHVucG9wdWxhciBzb25ncwoKYGBge3J9CnQudGVzdCh0cmFzaF9zb25ncyR0cmFjay5wb3B1bGFyaXR5LHRvcF9zb25nc19kZiR0cmFjay5wb3B1bGFyaXR5KQpgYGAKCgpgYGB7cn0KdG9wc29uZ3N2c3RyYXNoIDwtIGJpbmRfcm93cyhsaXN0KHVucG9wdWxhcj10cmFzaF9zb25ncywgcG9wdWxhcj10b3Bfc29uZ3NfZGYpLCAuaWQ9ICJzb25nX2dyb3VwIikKCnRvcHNvbmdzdnN0cmFzaCB8PgogIGdncGxvdChhZXMoeCA9IHNvbmdfZ3JvdXAsIHkgPSB0cmFjay5wb3B1bGFyaXR5KSkgKwogIGdlb21fdmlvbGluKCkKCmdncGxvdChkYXRhID0gdG9wc29uZ3N2c3RyYXNoLCBhZXMoeCA9IHNvbmdfZ3JvdXAsIHkgPSBkYW5jZWFiaWxpdHkpKSArCiAgZ2VvbV92aW9saW4oKQoKCmBgYAoKZ2V0dGluZyBhdWRpbyBkYXRhIGZyb20gdHJhc2ggcGxheWxpc3QKCmBgYHtyfQoKdHJhc2hfYXVkaW9faW5mbyA8LSB0cmFzaF9zb25ncyAlPiUgCiAgZHBseXI6OnNlbGVjdCh0cmFjay5pZCkgJT4lIAogIHB1cnJyOjpwbWFwKGZ1bmN0aW9uKHRyYWNrLmlkKSB7CiAgICBnZXRfdHJhY2tfYXVkaW9fZmVhdHVyZXModHJhY2suaWQpCiAgfSkgJT4lIAogIGRwbHlyOjpiaW5kX3Jvd3MoKSAlPiUgCiAgcmVhZHI6OndyaXRlX3RzdihmaWxlLnBhdGgoImRhdGEiLCJ0cmFzaF9hdWRpb19pbmZvLnRzdiIpKQoKdHJhc2hfc29uZ3NfZGYgPC0gZHBseXI6OmlubmVyX2pvaW4odHJhc2hfc29uZ3MsIHRyYXNoX2F1ZGlvX2luZm8sIGJ5ID0gYygidHJhY2suaWQiID0gImlkIiApKQoKY29tYmluZWRfc29uZ3NfZGYgPC0gYmluZF9yb3dzKGxpc3QodW5wb3B1bGFyPXRyYXNoX3NvbmdzX2RmLCBwb3B1bGFyPWNvbWJpbmVkX2RmKSwgLmlkPSAic29uZ19ncm91cCIpCgpjb21iaW5lZF9zb25nc19kZiB8PgpyZWFkcjo6d3JpdGVfdHN2KGZpbGUucGF0aCgiZGF0YSIsImNvbWJpbmVkX3RyYXNoX2FuZF9wb3B1bGFyLnRzdiIpKQoKY29tYmluZWRfc29uZ3NfZGYgfD4KICBnZ3Bsb3QoYWVzKHggPSBzb25nX2dyb3VwLCB5ID0gZGFuY2VhYmlsaXR5KSkgKwogIGdlb21fdmlvbGluKCkKCmNvbWJpbmVkX3NvbmdzX2RmIHw+CiAgZ2dwbG90KGFlcyh4ID0gc29uZ19ncm91cCwgeSA9IHRlbXBvKSkgKwogIGdlb21fdmlvbGluKCkKCmNvbWJpbmVkX3NvbmdzX2RmIHw+CiAgZ2dwbG90KGFlcyh4ID0gc29uZ19ncm91cCwgeSA9IGxpdmVuZXNzKSkgKwogIGdlb21fdmlvbGluKCkKCmNvbWJpbmVkX3NvbmdzX2RmIHw+CiAgZ2dwbG90KGFlcyh4ID0gc29uZ19ncm91cCwgeSA9IGluc3RydW1lbnRhbG5lc3MpKSArCiAgZ2VvbV92aW9saW4oKQoKY29tYmluZWRfc29uZ3NfZGYgfD4KICBnZ3Bsb3QoYWVzKHggPSBzb25nX2dyb3VwLCB5ID0gZW5lcmd5KSkgKwogIGdlb21fdmlvbGluKCkKCmNvbWJpbmVkX3NvbmdzX2RmIHw+CiAgZ2dwbG90KGFlcyh4ID0gc29uZ19ncm91cCwgeSA9IGxvdWRuZXNzKSkgKwogIGdlb21fdmlvbGluKCkKCmNvbWJpbmVkX3NvbmdzX2RmIHw+CiAgZ2dwbG90KGFlcyh4ID0gc29uZ19ncm91cCwgeSA9IGFjb3VzdGljbmVzcykpICsKICBnZW9tX3Zpb2xpbigpCgpjb21iaW5lZF9zb25nc19kZiB8PgogIGdncGxvdChhZXMoeCA9IHNvbmdfZ3JvdXAsIHkgPSBrZXkpKSArCiAgZ2VvbV92aW9saW4oKQoKIyMgTm93IHlvdSBjYW4gY2xlYW4gdXAgdHJhc2hfc29uZ3NfZGYgYW5kIG1ha2UgcGxvdHMgZnJvbSBpdApgYGAKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU3BvdGlmeSBTZXQgdXAgZGF0YSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCmBgYHtyfQpsaWJyYXJ5KHNwb3RpZnlyKQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShsdWJyaWRhdGUpCmxpYnJhcnkoY29ycnBsb3QpCmxpYnJhcnkodXNldGhpcykKbGlicmFyeShnZ3RoZW1lcykKCmRpci5jcmVhdGUoImRhdGEiLCBzaG93V2FybmluZ3MgPSBGQUxTRSkKYGBgCgpgYGB7cn0KaWQgPC0gImVkY2MyYzQ2NjZmNjQ0MjFiZjk4NDM5YWQ3ZGFhODVmIgpzZWNyZXQgPC0gIjQwZGU2MGVmNDNjYTQ4MzFhNTM0NGM1ODhhMDA4ZmI0IgoKU3lzLnNldGVudihTUE9USUZZX0NMSUVOVF9JRCA9IGlkKQpTeXMuc2V0ZW52KFNQT1RJRllfQ0xJRU5UX1NFQ1JFVCA9IHNlY3JldCkKYWNjZXNzX3Rva2VuIDwtIGdldF9zcG90aWZ5X2FjY2Vzc190b2tlbigpCmBgYAoKIyMgU2V0IHVwIGhpdCBzb25ncyBkYXRhIAoKYGBge3J9CnBsYXlsaXN0cyA8LSBjKAogICIxOTc4IiA9ICIzbXQyeXN5bFFRMmNjY0RQeUdmS0lEIiwKICAiMTk3OSIgPSAiNmJIakJDRk44THFqMEs1NFJXRmNpOCIsIAogICIxOTgwIiA9ICI3RENoNm1PdmFFR01WcGgyNWs3aHlOIiwgCiAgIjE5ODEiID0gIjV3YkhINERxRjRBVnVHbWpYSThrY1ciLAogICIxOTgyIiA9ICIxYms2dE82ZDVvZXM2bjB2aEFDaTV4IiwKICAiMTk4MyIgPSAiN0dOMXVsZ3pYQldwbjVWQURBUmtOZCIsCiAgIjE5ODQiID0gIjEwUXhSYWc1RG9LU1IwaU93WjQ4THQiLAogICIxOTg1IiA9ICI3Zkd0WGlFOHFiUXpxRWlzSHc1Q0xTIiwKICAiMTk4NiIgPSAiNHJoZ0FJbm85T2lvcFV6TmhPWkRiYyIsCiAgIjE5ODciID0gIjNmbmlWTThwYk1xOGpjUjIzYVZJWTgiLAogICIxOTg4IiA9ICIxTENVcWFHM1piRm5wSndlVjFscmoxIiwKICAiMTk4OSIgPSAiNVpqWmJUSGM2SkJWdTkyMWh3YzZ2MiIsCiAgIjE5OTEiID0gIjYxRnVzZ2xRanUweVhwejN2N25ZZDUiLAogICIxOTkyIiA9ICIwcDZWd0hxQVpOVjl4dzVIdUlLSEpkIiwKICAiMTk5MyIgPSAiMzV3WnFzemR5WE5GQ0F6dHlMV2xnVCIsCiAgIjE5OTUiID0gIjV6WWdtbVJwOW96THN0VnJ5MUpMYnciLAogICIxOTk2IiA9ICIwWUtiakxnQ1BzcDdLM2sySkg0Tlp3IiwgCiAgIjE5OTciID0gIjZOZXd6UmdnelJEQkJQb3dSdVhCb3IiLCAKICAiMTk5OCIgPSAiNjJGQ25HTTgzVld2dHY2ekFsTWdUZCIsIAogICIxOTk5IiA9ICIwcG56c0g4ekt2bnltTktPZlByVDFQIiwKICAiMjAwMHMiID0gIjRjTUx5SURDaDRYOTB3Z3lFd1luZU4iLAogICIyMDEwIiA9ICI1bmFxamJ5M3hJQ3ZKdGUzUU12SGNzIgogICkKCmBgYAoKYGBge3J9Cmdvb2Rfc29uZ3MgPC0gbGFwcGx5KHBsYXlsaXN0cywgZ2V0X3BsYXlsaXN0X3RyYWNrcykKCmdvb2Rfc29uZ3NfZGYgPC0gZHBseXI6OmJpbmRfcm93cyhnb29kX3NvbmdzLCAuaWQgPSAieWVhciIpICU+JQogIHJlYWRyOjp3cml0ZV90c3YoZmlsZS5wYXRoKCJkYXRhIiwiaGl0X3NvbmdzX292ZXJfZGVjYWRlcy50c3YiKSkKYGBgCgpOb3cgZ2V0IHRoZSBhdWRpbyBpbmZvcm1hdGlvbiBmb3IgYWxsIG9mIHRob3NlIHRyYWNrcy4KCmBgYHtyfQojIFdlIG5lZWQgdG8gc2VuZCB0aGVzZSBpbiBiYXRjaGVzIHNvIHdlIGRvbid0IHJlYWNoIHRoZSByZXF1ZXN0IGxpbWl0cwp0cmFja3NfbGlzdCA8LSBzcGxpdChnb29kX3NvbmdzX2RmJHRyYWNrLmlkLCBjZWlsaW5nKHNlcV9hbG9uZyhnb29kX3NvbmdzX2RmJHRyYWNrLmlkKS8xMDApKQojIFRoaXMgbG9vcHMgdGhyb3VnaCBhbmQgcmVxdWVzdHMgaW5mbyBvbiB0aGUgdHJhY2tzIGluIGNodW5rcwp0cmFja19hdWRpb19mZWF0dXJlcyA8LSBsYXBwbHkodHJhY2tzX2xpc3QsIGZ1bmN0aW9uKGNodW5rKSB7CiAgdHJhY2tzIDwtIHBhc3RlMChjaHVuaywgY29sbGFwc2UgPSAiLCIpCiAgU3lzLnNsZWVwKDkwKQogIHJldHVybihnZXRfdHJhY2tfYXVkaW9fZmVhdHVyZXModHJhY2tzKSkKfSkKYGBgCgpgYGB7cn0KIyBDb2xsYXBzZSBiYWNrIGRvd24gdG8gYSBkYXRhIGZyYW1lCnRyYWNrX2F1ZGlvX2RmIDwtIGJpbmRfcm93cyh0cmFja19hdWRpb19mZWF0dXJlcykKCiMgR2V0IHJpZCBvZiBzb25ncyB0aGF0IGRvbid0IGhhdmUgYXVkaW8gaW5mbwp0cmFja19hdWRpb19kZiA8LSB0cmFja19hdWRpb19kZiB8PgogICBmaWx0ZXIoIWlzLm5hKHRlbXBvKSkKYGBgCgpQdXQgYWxsIHRoZSBzb25nIGluZm8gdG9nZXRoZXIgaW4gb25lIGRhdGEgZnJhbWUgCgpgYGB7cn0KIyBDb21iaW5lIGF1ZGlvIGluZm8gd2l0aCBzb25nIGluZm8gZnJvbSBhYm92ZSAKdHJhY2tfYXVkaW9fZGYgPC0gdHJhY2tfYXVkaW9fZGYgfD4KICByZW5hbWUodHJhY2suaWQgPSBpZCkgJT4lIAogIGRwbHlyOjpkaXN0aW5jdCgpCgpnb29kX3NvbmdzX2RmIDwtIGRwbHlyOjppbm5lcl9qb2luKHRyYWNrX2F1ZGlvX2RmLCBnb29kX3NvbmdzX2RmLCBieSA9ICJ0cmFjay5pZCIpCmBgYAoKTGV0J3MgZXh0cmFjdCB0aGUgYWN0dWFsIHNvbmcgcmVsZWFzZSB5ZWFyIGZyb20gdGhlIHZhcmlhYmxlIGB0cmFjay5hbGJ1bS5yZWxlYXNlX2RhdGVgClRoZSBkYXRlcyBsb29rIGxpa2UgdGhpcyAiMTk3OC0wNC0wNCIKCmBgYHtyfQpnb29kX3NvbmdzX2RmIDwtIGdvb2Rfc29uZ3NfZGYgfD4gCiBkcGx5cjo6bXV0YXRlKHJlbGVhc2VfZGF0ZSA9IHN0cmluZ3I6OndvcmQodHJhY2suYWxidW0ucmVsZWFzZV9kYXRlLCBzZXAgPSAiLSIsIDEpKSB8PiAKIGRwbHlyOjpmaWx0ZXIoIWlzLm5hKHJlbGVhc2VfZGF0ZSkpCmBgYAoKQ29sbGVjdCBhbGwgdGhlIHVucG9wdWxhciBzb25ncyBwbGF5bGlzdCBpbmZvcm1hdGlvbiAKCmBgYHtyfQp3b3JzdF9zb25nX3BsYXlsaXN0IDwtIGMoIjQ3THFmUUw3cEh6ZkNGbDh3T2pQbjciLCIxdGU5aDQ4YzhZRVB4NUxpcnlNZzVsIiwiMUZBU3Z3cTN1TDBHRWJFUDh5TW9CdSIpCgp0cmFzaF9zb25ncyA8LSBsYXBwbHkod29yc3Rfc29uZ19wbGF5bGlzdCwgZ2V0X3BsYXlsaXN0X3RyYWNrcykKCnRyYXNoX3NvbmdzIDwtIGJpbmRfcm93cyh0cmFzaF9zb25ncywgLmlkID0gInBsYXlsaXN0X2lkIikKCnJlYWRyOjp3cml0ZV9yZHModHJhc2hfc29uZ3MgLCBmaWxlLnBhdGgoImRhdGEiLCAidHJhc2hfc29uZ3MuUkRTIikpCmBgYAoKYGBge3J9CiMgV2UgbmVlZCB0byBzZW5kIHRoZXNlIGluIGJhdGNoZXMgc28gd2UgZG9uJ3QgcmVhY2ggdGhlIHJlcXVlc3QgbGltaXRzCnRyYXNoX3RyYWNrc19saXN0IDwtIHNwbGl0KHRyYXNoX3NvbmdzJHRyYWNrLmlkLCBjZWlsaW5nKHNlcV9hbG9uZyh0cmFzaF9zb25ncyR0cmFjay5pZCkvMTAwKSkKIyBUaGlzIGxvb3BzIHRocm91Z2ggYW5kIHJlcXVlc3RzIGluZm8gb24gdGhlIHRyYWNrcyBpbiBjaHVua3MKdHJhc2hfdHJhY2tfYXVkaW8gPC0gbGFwcGx5KHRyYXNoX3RyYWNrc19saXN0LCBmdW5jdGlvbihjaHVuaykgewogIHRyYWNrcyA8LSBwYXN0ZTAoY2h1bmssIGNvbGxhcHNlID0gIiwiKQogIFN5cy5zbGVlcCg5MCkKICByZXR1cm4oZ2V0X3RyYWNrX2F1ZGlvX2ZlYXR1cmVzKHRyYWNrcykpCn0pCgojIE1ha2UgaW50byBhIGRhdGFmcmFtZSAKdHJhc2hfdHJhY2tfYXVkaW8gPC0gdHJhc2hfdHJhY2tfYXVkaW8gJT4lIAogIGRwbHlyOjpiaW5kX3Jvd3MoKSAlPiUgCiAgcmVhZHI6OndyaXRlX3RzdihmaWxlLnBhdGgoImRhdGEiLCJ0cmFzaF9hdWRpb19pbmZvLnRzdiIpKQoKdHJhc2hfdHJhY2tfYXVkaW8gPC0gdHJhc2hfdHJhY2tfYXVkaW8gfD4KICByZW5hbWUodHJhY2suaWQgPSBpZCkgJT4lIAogIGRwbHlyOjpkaXN0aW5jdCgpCmBgYAoKCmBgYHtyfQojIFB1dCBhdWRpbyBpbmZvIHRvZ2V0aGVyIHdpdGggb3JpZ2luYWwgdHJhc2ggc29uZyBpbmZvCnRyYXNoX3NvbmdzX2RmIDwtIGRwbHlyOjppbm5lcl9qb2luKHRyYXNoX3NvbmdzLCB0cmFzaF90cmFja19hdWRpbywgYnkgPSAidHJhY2suaWQiKQpgYGAKCiMjIFB1dCBhbGwgc29uZ3MgaW4gb25lIGRhdGEgZnJhbWUgYW5kIHNhdmUgdGhhdCB0byBhbiBSRFMKCmBgYHtyfQpzYXZlUkRTKHRyYXNoX3NvbmdzX2RmLGZpbGUucGF0aCgiZGF0YSIsInRyYXNoX3NvbmdzX2RmLnJkcyIpKQoKc2F2ZVJEUyhnb29kX3NvbmdzX2RmLGZpbGUucGF0aCgiZGF0YSIsImdvb2Rfc29uZ3NfZGYucmRzIikpCgphbGxfc29uZ3NfZGYgPC0gYmluZF9yb3dzKGxpc3QodW5wb3B1bGFyID0gdHJhc2hfc29uZ3NfZGYsIHBvcHVsYXIgPSBnb29kX3NvbmdzX2RmKSwgCiAgICAgICAgICAgICAgICAgICAgICAgICAgLmlkPSAic29uZ19ncm91cCIpCgpyZWFkcjo6d3JpdGVfcmRzKGFsbF9zb25nc19kZiAsIGZpbGUucGF0aCgiZGF0YSIsICJhbGxfc29uZ3MuUkRTIikpCmBgYAoKCmBgYHtyfQojIFByaW50IG91dCBzZXNzaW9uIGluZm8gaGVyZQpzZXNzaW9uSW5mbygpCmBgYAo=</div>
 
 
 
